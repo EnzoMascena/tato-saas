@@ -1,0 +1,10 @@
+{
+  "name": "tato-frontend",
+  "private": true,
+  "scripts": {
+    "dev:sitio": "pnpm --filter @tato/sitio dev",
+    "dev:panel": "pnpm --filter @tato/panel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
+  }
+}
