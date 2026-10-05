@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Tato.Api/Tato.Api.csproj" />
+    <Project Path="src/Tato.Application/Tato.Application.csproj" />
+    <Project Path="src/Tato.Domain/Tato.Domain.csproj" />
+    <Project Path="src/Tato.Infrastructure/Tato.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Tato.ArchitectureTests/Tato.ArchitectureTests.csproj" />
+    <Project Path="tests/Tato.Domain.Tests/Tato.Domain.Tests.csproj" />
+    <Project Path="tests/Tato.IntegrationTests/Tato.IntegrationTests.csproj" />
+  </Folder>
+</Solution>
