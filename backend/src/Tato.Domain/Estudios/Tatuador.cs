@@ -62,27 +62,27 @@ public sealed class Tatuador
     public static Tatuador Crear(
         Usuario usuario,
         string nombreArtistico,
-        string? bio,
-        string? instagram)
+        string? bio = null,
+        string? instagram = null)
     {
         ArgumentNullException.ThrowIfNull(usuario);
 
         if (!usuario.Roles.HasFlag(Rol.Tatuador))
-            throw new ArgumentException("El usuario no tiene el rol Tatuador.", nameof(usuario));
+            throw new ArgumentException("El usuario debe tener el rol Tatuador.", nameof(usuario));
 
-        var (nombre, bioValidada, instagramValidado) = Validar(nombreArtistico, bio, instagram);
+        var (nombreValidado, bioValidada, instagramValidado) = Validar(nombreArtistico, bio, instagram);
 
         return new Tatuador(
             Guid.NewGuid(),
             usuario.Id,
             usuario.EstudioId,
-            nombre,
+            nombreValidado,
             bioValidada,
             instagramValidado);
     }
 
     /// <summary>
-    /// Actualiza los datos del perfil público.
+    /// Actualiza los datos del perfil público. Si la bio o el Instagram vienen vacíos, se borran.
     /// </summary>
     public void ActualizarPerfil(string nombreArtistico, string? bio, string? instagram)
     {
@@ -100,25 +100,25 @@ public sealed class Tatuador
         if (string.IsNullOrWhiteSpace(nombreArtistico))
             throw new ArgumentException("El nombre artístico no puede estar vacío.", nameof(nombreArtistico));
 
-        var nombre = nombreArtistico.Trim();
+        var nombreValidado = nombreArtistico.Trim();
 
-        if (nombre.Length > MaxNombreArtistico)
+        if (nombreValidado.Length > MaxNombreArtistico)
             throw new ArgumentException(
                 $"El nombre artístico no puede exceder {MaxNombreArtistico} caracteres.", nameof(nombreArtistico));
 
-        var bioNormalizada = VacioANull(bio);
+        var bioValidada = VacioANull(bio);
 
-        if (bioNormalizada is not null && bioNormalizada.Length > MaxBio)
+        if (bioValidada is not null && bioValidada.Length > MaxBio)
             throw new ArgumentException($"La bio no puede exceder {MaxBio} caracteres.", nameof(bio));
 
-        // Se saca la arroba por si la escriben: se guarda solo el usuario ("ana.tattoo").
-        var instagramNormalizado = VacioANull(instagram?.Trim().TrimStart('@'));
+        // Se saca la arroba por si la escriben: se guarda solo el usuario ("enzo_tattoos").
+        var instagramValidado = VacioANull(instagram?.Trim().TrimStart('@'));
 
-        if (instagramNormalizado is not null && instagramNormalizado.Length > MaxInstagram)
+        if (instagramValidado is not null && instagramValidado.Length > MaxInstagram)
             throw new ArgumentException(
                 $"El usuario de Instagram no puede exceder {MaxInstagram} caracteres.", nameof(instagram));
 
-        return (nombre, bioNormalizada, instagramNormalizado);
+        return (nombreValidado, bioValidada, instagramValidado);
     }
 
     /// <summary>

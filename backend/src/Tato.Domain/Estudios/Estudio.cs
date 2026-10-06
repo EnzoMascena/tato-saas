@@ -1,11 +1,18 @@
 namespace Tato.Domain.Estudios;
 
-///<summary>
+/// <summary>
 /// Un estudio de tatuajes: tenant raíz. Sus datos están completamente aislados de otros estudios (RN-VIS-01).
-///</summary>
-
+/// </summary>
 public sealed class Estudio
 {
+    public const int MaxNombre = 100;
+    public const int MaxPlan = 50;
+    public const int MaxZonaHoraria = 64;
+
+    public const string ZonaHorariaPorDefecto = "America/Argentina/Buenos_Aires";
+    public const int DiasVencimientoSeniaPorDefecto = 14;
+    public const int MaxReagendamientosPorDefecto = 2;
+
     private Estudio(
         Guid id,
         string nombre,
@@ -22,85 +29,100 @@ public sealed class Estudio
         MaxReagendamientos = maxReagendamientos;
     }
 
-    ///<summary>
-    ///Identificador uncio del estudio (UUID). Lo genera la base de datos.
+    /// <summary>
+    /// Identificador único del estudio (UUID). Lo genera el dominio al crear el estudio.
     /// </summary>
     public Guid Id { get; }
 
-    ///<summary>
-    ///Nombre del estudio
+    /// <summary>
+    /// Nombre del estudio.
     /// </summary>
-    public string Nombre { get; private set;}
+    public string Nombre { get; private set; }
 
-    ///<summary>
-    ///Plan de facturacion (todavia no definido)
+    /// <summary>
+    /// Plan de facturación (todavía no definido).
     /// </summary>
-    public string Plan { get; private set;}
+    public string Plan { get; private set; }
 
-    ///<summary>
-    ///Zona horaria del estudio (ej: "America/Argentina/Buenos_Aires").
-    ///Las reglas como "00:00 del día siguiente" (RN-TUR-06) se aplican en esta zona.
-    ///Por defecto, Argentina (D-43).
-    ///</summary>
-    public string ZonaHoraria{ get; private set;}
+    /// <summary>
+    /// Zona horaria del estudio (ej: "America/Argentina/Buenos_Aires").
+    /// Las reglas como "00:00 del día siguiente" (RN-TUR-06) se aplican en esta zona.
+    /// Por defecto, Argentina (D-43).
+    /// </summary>
+    public string ZonaHoraria { get; private set; }
 
-    ///<summary>
+    /// <summary>
     /// Días que dura una seña desde el pago (por defecto, 14). Configurable por estudio (D-34).
     /// </summary>
-    public int DiasVencimientoSenia { get; private set;}
+    public int DiasVencimientoSenia { get; private set; }
 
-    ///<summary>
-    ///Máximo de reagendamientos permitidos (por defecto, 2). Configurable por estudio (D-34).
+    /// <summary>
+    /// Máximo de reagendamientos permitidos (por defecto, 2). Configurable por estudio (D-34).
     /// </summary>
-    public int MaxReagendamientos { get; private set;}
+    public int MaxReagendamientos { get; private set; }
 
     public static Estudio Crear(
         string nombre,
         string plan,
         string? zonaHoraria = null,
         int? diasVencimientoSenia = null,
-        int? maxReagendamientos = null
-        )
+        int? maxReagendamientos = null)
     {
         if (string.IsNullOrWhiteSpace(nombre))
-            throw new ArgumentException ("El nombre del estudio no puede estar vacio.", nameof(nombre));
-        
-        if (nombre.Length > 100)
-            throw new ArgumentException("El nombre no puede exceder 100 caracteres. ", nameof(nombre));
-        
+            throw new ArgumentException("El nombre del estudio no puede estar vacio.", nameof(nombre));
+
+        var nombreLimpio = nombre.Trim();
+
+        if (nombreLimpio.Length > MaxNombre)
+            throw new ArgumentException($"El nombre no puede exceder {MaxNombre} caracteres.", nameof(nombre));
+
         if (string.IsNullOrWhiteSpace(plan))
-            throw new ArgumentException("El plan no puede estar vacio: ", nameof(plan));
-        
-        // Usa valores por defecto si no se especifican (D-34)
-        var zona = zonaHoraria ?? "America/Argentina/Buenos_Aires";
-        var dias = diasVencimientoSenia ?? 14;
-        var max = maxReagendamientos ?? 2;
+            throw new ArgumentException("El plan no puede estar vacio.", nameof(plan));
 
-        if (dias <= 0)
-            throw new ArgumentException("Los días de vencimiento de seña deben ser mayor a 0.", nameof(diasVencimientoSenia));
+        var planLimpio = plan.Trim();
 
-        if (max < 0)
-            throw new ArgumentException("El máximo de reagendamientos no puede ser negativo.", nameof(maxReagendamientos));
+        if (planLimpio.Length > MaxPlan)
+            throw new ArgumentException($"El plan no puede exceder {MaxPlan} caracteres.", nameof(plan));
 
-        // Genera un ID nuevo. Lo puede hacer Domain porque es un UUID.
-        var id = Guid.NewGuid();
+        // Si no se especifica, se usa la zona por defecto (D-43).
+        var zona = string.IsNullOrWhiteSpace(zonaHoraria) ? ZonaHorariaPorDefecto : zonaHoraria.Trim();
 
-        return new Estudio(id, nombre, plan, zona, dias, max);
+        if (zona.Length > MaxZonaHoraria)
+            throw new ArgumentException(
+                $"La zona horaria no puede exceder {MaxZonaHoraria} caracteres.", nameof(zonaHoraria));
+
+        // Si no se especifican, se usan los valores por defecto (D-34).
+        var dias = diasVencimientoSenia ?? DiasVencimientoSeniaPorDefecto;
+        var max = maxReagendamientos ?? MaxReagendamientosPorDefecto;
+
+        ValidarParametros(dias, max);
+
+        return new Estudio(Guid.NewGuid(), nombreLimpio, planLimpio, zona, dias, max);
     }
-    
+
     /// <summary>
     /// Cambia los parámetros de negocio del estudio (plazo de seña, máx. reagendamientos).
     /// Solo el Dueño puede hacerlo.
     /// </summary>
     public void ConfigurarParametros(int diasVencimientoSenia, int maxReagendamientos)
     {
-        if (diasVencimientoSenia <= 0)
-            throw new ArgumentException("Los días deben ser mayor a 0.", nameof(diasVencimientoSenia));
-
-        if (maxReagendamientos < 0)
-            throw new ArgumentException("El máximo de reagendamientos no puede ser negativo.", nameof(maxReagendamientos));
+        ValidarParametros(diasVencimientoSenia, maxReagendamientos);
 
         DiasVencimientoSenia = diasVencimientoSenia;
         MaxReagendamientos = maxReagendamientos;
+    }
+
+    /// <summary>
+    /// Valida los parámetros de negocio del estudio (D-34).
+    /// </summary>
+    private static void ValidarParametros(int diasVencimientoSenia, int maxReagendamientos)
+    {
+        if (diasVencimientoSenia <= 0)
+            throw new ArgumentException(
+                "Los días de vencimiento de la seña deben ser mayor a 0.", nameof(diasVencimientoSenia));
+
+        if (maxReagendamientos < 0)
+            throw new ArgumentException(
+                "El máximo de reagendamientos no puede ser negativo.", nameof(maxReagendamientos));
     }
 }

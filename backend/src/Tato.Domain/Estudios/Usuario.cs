@@ -1,22 +1,18 @@
 namespace Tato.Domain.Estudios;
 
-
 /// <summary>
-/// Roles de usuario en el estudio (D-03).
-/// </summary>
-[Flags]
-public enum Rol
-{
-    Dueno = 1,
-    Tatuador = 2,
-    Administrativo = 4
-}
-
-///<summary>
-/// Un usuario
+/// Un usuario del estudio, con email, nombre y roles (D-03).
 /// </summary>
 public sealed class Usuario
 {
+    public const int MaxEmail = 256;
+    public const int MaxNombre = 100;
+
+    /// <summary>
+    /// Todos los roles que existen. Sirve para rechazar valores que no corresponden a ninguno.
+    /// </summary>
+    private const Rol RolesValidos = Rol.Dueno | Rol.Tatuador | Rol.Administrativo;
+
     private Usuario(
         Guid id,
         Guid estudioId,
@@ -31,29 +27,29 @@ public sealed class Usuario
         Roles = roles;
     }
 
-    ///<summary>
-    /// Identificador unico del Usuario (UUID) . Lo genera la base de datos
+    /// <summary>
+    /// Identificador único del usuario (UUID). Lo genera el dominio al crearlo.
     /// </summary>
     public Guid Id { get; }
 
-    ///<summary>
-    /// Guid del estudio al que pertenece el Usuario
-    ///</summary>
+    /// <summary>
+    /// Estudio al que pertenece el usuario (D-42).
+    /// </summary>
     public Guid EstudioId { get; }
 
-    ///<summary>
-    /// Email del usuario
+    /// <summary>
+    /// Email del usuario. Lo usa para iniciar sesión.
     /// </summary>
     public string Email { get; private set; }
 
-    ///<summary>
-    /// Nombre del usuario
+    /// <summary>
+    /// Nombre del usuario.
     /// </summary>
     public string Nombre { get; private set; }
 
-    ///<summary>
-    /// Roles del usuario del estudio (D-03)
-    ///</summary>
+    /// <summary>
+    /// Roles del usuario en el estudio (D-03).
+    /// </summary>
     public Rol Roles { get; private set; }
 
     public static Usuario Crear(
@@ -62,26 +58,28 @@ public sealed class Usuario
         string nombre,
         Rol roles)
     {
-        // Validaciones
         if (estudioId == Guid.Empty)
             throw new ArgumentException("El EstudioId no puede estar vacío.", nameof(estudioId));
 
         if (string.IsNullOrWhiteSpace(email))
             throw new ArgumentException("El email no puede estar vacío.", nameof(email));
 
-        if (email.Length > 256)
-            throw new ArgumentException("El email no puede exceder 256 caracteres.", nameof(email));
+        var emailLimpio = email.Trim();
+
+        if (emailLimpio.Length > MaxEmail)
+            throw new ArgumentException($"El email no puede exceder {MaxEmail} caracteres.", nameof(email));
 
         if (string.IsNullOrWhiteSpace(nombre))
             throw new ArgumentException("El nombre no puede estar vacío.", nameof(nombre));
 
-        if (nombre.Length > 100)
-            throw new ArgumentException("El nombre no puede exceder 100 caracteres.", nameof(nombre));
+        var nombreLimpio = nombre.Trim();
+
+        if (nombreLimpio.Length > MaxNombre)
+            throw new ArgumentException($"El nombre no puede exceder {MaxNombre} caracteres.", nameof(nombre));
 
         ValidarRoles(roles);
 
-        var id = Guid.NewGuid();
-        return new Usuario(id, estudioId, email, nombre, roles);
+        return new Usuario(Guid.NewGuid(), estudioId, emailLimpio, nombreLimpio, roles);
     }
 
     /// <summary>
@@ -98,16 +96,20 @@ public sealed class Usuario
     /// </summary>
     private static void ValidarRoles(Rol roles)
     {
-        // Al menos un rol
         if (roles == 0)
             throw new ArgumentException("El usuario debe tener al menos un rol.", nameof(roles));
 
-        // Si no es Dueño, no puede ser Tatuador y Administrativo juntos
+        // Si quedan bits prendidos fuera de los roles válidos, es un valor como (Rol)8.
+        if ((roles & ~RolesValidos) != 0)
+            throw new ArgumentException("El usuario tiene un rol desconocido.", nameof(roles));
+
         bool esDueno = roles.HasFlag(Rol.Dueno);
         bool esTatuador = roles.HasFlag(Rol.Tatuador);
         bool esAdministrativo = roles.HasFlag(Rol.Administrativo);
 
+        // Si no es Dueño, no puede ser Tatuador y Administrativo juntos.
         if (!esDueno && esTatuador && esAdministrativo)
-            throw new ArgumentException("Un usuario que no es Dueño no puede ser Tatuador y Administrativo a la vez.", nameof(roles));
+            throw new ArgumentException(
+                "Un usuario que no es Dueño no puede ser Tatuador y Administrativo a la vez.", nameof(roles));
     }
 }
