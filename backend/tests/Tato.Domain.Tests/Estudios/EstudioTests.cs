@@ -119,4 +119,39 @@ public class EstudioTests
             estudio.ConfigurarParametros(diasVencimientoSenia: 14, maxReagendamientos: -1));
         Assert.Contains("no puede ser negativo", ex.Message);
     }
+
+    [Fact]
+    public void Crear_ConPlanMuyLargo_LanzaArgumentException()
+    {
+        // Arrange
+        var plan = new string('a', Estudio.MaxPlan + 1);
+
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() => Estudio.Crear("Test", plan));
+        Assert.Contains($"no puede exceder {Estudio.MaxPlan} caracteres", ex.Message);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Crear_ConZonaHorariaVacia_UsaLaZonaPorDefecto(string zona)
+    {
+        // Act
+        var estudio = Estudio.Crear("Test", "starter", zonaHoraria: zona);
+
+        // Assert
+        Assert.Equal(Estudio.ZonaHorariaPorDefecto, estudio.ZonaHoraria);
+    }
+
+    [Fact]
+    public void Crear_ConZonaHorariaMuyLarga_LanzaArgumentException()
+    {
+        // Arrange
+        var zona = new string('a', Estudio.MaxZonaHoraria + 1);
+
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() =>
+            Estudio.Crear("Test", "starter", zonaHoraria: zona));
+        Assert.Contains($"no puede exceder {Estudio.MaxZonaHoraria} caracteres", ex.Message);
+    }
 }

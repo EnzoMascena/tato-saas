@@ -136,4 +136,24 @@ public class UsuarioTests
             usuario.CambiarRoles(Rol.Tatuador | Rol.Administrativo));
         Assert.Contains("no puede ser Tatuador y Administrativo a la vez", ex.Message);
     }
+
+    [Fact]
+    public void Crear_ConRolDesconocido_LanzaArgumentException()
+    {
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() =>
+            Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", (Rol)8));
+        Assert.Contains("rol desconocido", ex.Message);
+    }
+
+    [Fact]
+    public void Crear_ConEspaciosAlrededor_GuardaLosTextosRecortados()
+    {
+        // Act
+        var usuario = Usuario.Crear(Guid.NewGuid(), "  enzo@example.com  ", "  Enzo  ", Rol.Dueno);
+
+        // Assert
+        Assert.Equal("enzo@example.com", usuario.Email);
+        Assert.Equal("Enzo", usuario.Nombre);
+    }
 }

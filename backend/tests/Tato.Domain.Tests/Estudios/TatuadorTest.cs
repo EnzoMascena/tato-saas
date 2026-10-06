@@ -3,30 +3,28 @@ namespace Tato.Domain.Tests.Estudios;
 using Tato.Domain.Estudios;
 using Xunit;
 
-public class TatuadorTest
+public class TatuadorTests
 {
-    /// <summary>
-    /// Crea un usuario para los tests. Por defecto, con rol Tatuador.
-    /// </summary>
-    private static Usuario CrearUsuario(Rol roles = Rol.Tatuador) =>
-        Usuario.Crear(Guid.NewGuid(), "ana@example.com", "Ana", roles);
-
     [Fact]
     public void Crear_ConDatosValidos_DevuelveTatuador()
     {
         // Arrange
-        var usuario = CrearUsuario();
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
 
         // Act
-        var tatuador = Tatuador.Crear(usuario, "Ana Ink", "Blackwork y fine line.", "ana.ink");
+        var tatuador = Tatuador.Crear(
+            usuario,
+            "Enzo Art",
+            "Mi bio",
+            "enzo_tattoos");
 
         // Assert
         Assert.NotEqual(Guid.Empty, tatuador.Id);
         Assert.Equal(usuario.Id, tatuador.UsuarioId);
         Assert.Equal(usuario.EstudioId, tatuador.EstudioId);
-        Assert.Equal("Ana Ink", tatuador.NombreArtistico);
-        Assert.Equal("Blackwork y fine line.", tatuador.Bio);
-        Assert.Equal("ana.ink", tatuador.Instagram);
+        Assert.Equal("Enzo Art", tatuador.NombreArtistico);
+        Assert.Equal("Mi bio", tatuador.Bio);
+        Assert.Equal("enzo_tattoos", tatuador.Instagram);
     }
 
     [Fact]
@@ -34,35 +32,19 @@ public class TatuadorTest
     {
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() =>
-            Tatuador.Crear(null!, "Ana Ink", null, null));
-    }
-
-    [Theory]
-    [InlineData(Rol.Dueno)]
-    [InlineData(Rol.Administrativo)]
-    [InlineData(Rol.Dueno | Rol.Administrativo)]
-    public void Crear_ConUsuarioSinRolTatuador_LanzaArgumentException(Rol roles)
-    {
-        // Arrange
-        var usuario = CrearUsuario(roles);
-
-        // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() =>
-            Tatuador.Crear(usuario, "Ana Ink", null, null));
-        Assert.Contains("no tiene el rol Tatuador", ex.Message);
+            Tatuador.Crear(null!, "Enzo Art", "Mi bio", "enzo_tattoos"));
     }
 
     [Fact]
-    public void Crear_ConUsuarioDuenoYTatuador_DevuelveTatuador()
+    public void Crear_ConUsuarioSinRolTatuador_LanzaArgumentException()
     {
         // Arrange
-        var usuario = CrearUsuario(Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno);
 
-        // Act
-        var tatuador = Tatuador.Crear(usuario, "Ana Ink", null, null);
-
-        // Assert
-        Assert.Equal(usuario.Id, tatuador.UsuarioId);
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() =>
+            Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "enzo_tattoos"));
+        Assert.Contains("debe tener el rol Tatuador", ex.Message);
     }
 
     [Theory]
@@ -70,124 +52,132 @@ public class TatuadorTest
     [InlineData("   ")]
     public void Crear_ConNombreArtisticoVacio_LanzaArgumentException(string nombre)
     {
+        // Arrange
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Tatuador.Crear(CrearUsuario(), nombre, null, null));
+            Tatuador.Crear(usuario, nombre, "Mi bio", "enzo_tattoos"));
         Assert.Contains("no puede estar vacío", ex.Message);
     }
 
     [Fact]
-    public void Crear_ConNombreArtisticoMuyLargo_LanzaArgumentException()
+    public void Crear_ConNombreArtisticoMayorA100Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var nombre = new string('a', Tatuador.MaxNombreArtistico + 1);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var nombreLargo = new string('a', 101);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Tatuador.Crear(CrearUsuario(), nombre, null, null));
-        Assert.Contains($"no puede exceder {Tatuador.MaxNombreArtistico} caracteres", ex.Message);
+            Tatuador.Crear(usuario, nombreLargo, "Mi bio", "enzo_tattoos"));
+        Assert.Contains("no puede exceder 100 caracteres", ex.Message);
     }
 
     [Fact]
-    public void Crear_ConEspaciosAlrededor_GuardaLosTextosRecortados()
+    public void Crear_ConBioVacia_SePermite()
     {
-        // Act
-        var tatuador = Tatuador.Crear(CrearUsuario(), "  Ana Ink  ", "  Blackwork  ", null);
+        // Arrange
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
 
-        // Assert
-        Assert.Equal("Ana Ink", tatuador.NombreArtistico);
-        Assert.Equal("Blackwork", tatuador.Bio);
-    }
-
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("   ")]
-    public void Crear_ConBioEInstagramVacios_LosGuardaComoNull(string? valor)
-    {
         // Act
-        var tatuador = Tatuador.Crear(CrearUsuario(), "Ana Ink", valor, valor);
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "", "enzo_tattoos");
 
         // Assert
         Assert.Null(tatuador.Bio);
-        Assert.Null(tatuador.Instagram);
     }
 
     [Fact]
-    public void Crear_ConBioMuyLarga_LanzaArgumentException()
+    public void Crear_ConBioMayorA1000Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var bio = new string('a', Tatuador.MaxBio + 1);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var bioLarga = new string('a', 1001);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Tatuador.Crear(CrearUsuario(), "Ana Ink", bio, null));
-        Assert.Contains($"no puede exceder {Tatuador.MaxBio} caracteres", ex.Message);
+            Tatuador.Crear(usuario, "Enzo Art", bioLarga, "enzo_tattoos"));
+        Assert.Contains("no puede exceder 1000 caracteres", ex.Message);
     }
 
-    [Theory]
-    [InlineData("ana.ink")]
-    [InlineData("@ana.ink")]
-    [InlineData("  @ana.ink  ")]
-    public void Crear_ConInstagram_GuardaElUsuarioSinArroba(string instagram)
+    [Fact]
+    public void Crear_ConInstagramConArroba_LaSacaAutomaticamente()
     {
+        // Arrange
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+
         // Act
-        var tatuador = Tatuador.Crear(CrearUsuario(), "Ana Ink", null, instagram);
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "@enzo_tattoos");
 
         // Assert
-        Assert.Equal("ana.ink", tatuador.Instagram);
+        Assert.Equal("enzo_tattoos", tatuador.Instagram);
+    }
+
+    [Fact]
+    public void Crear_ConInstagramVacio_SePermite()
+    {
+        // Arrange
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+
+        // Act
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "");
+
+        // Assert
+        Assert.Null(tatuador.Instagram);
     }
 
     [Fact]
     public void Crear_ConInstagramSoloArroba_LoGuardaComoNull()
     {
+        // Arrange
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+
         // Act
-        var tatuador = Tatuador.Crear(CrearUsuario(), "Ana Ink", null, "@");
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "@");
 
         // Assert
         Assert.Null(tatuador.Instagram);
     }
 
     [Fact]
-    public void Crear_ConInstagramMuyLargo_LanzaArgumentException()
+    public void Crear_ConInstagramMayorA30Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var instagram = new string('a', Tatuador.MaxInstagram + 1);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var instagramLargo = new string('a', 31);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Tatuador.Crear(CrearUsuario(), "Ana Ink", null, instagram));
-        Assert.Contains($"no puede exceder {Tatuador.MaxInstagram} caracteres", ex.Message);
+            Tatuador.Crear(usuario, "Enzo Art", "Mi bio", instagramLargo));
+        Assert.Contains("no puede exceder 30 caracteres", ex.Message);
     }
 
     [Fact]
-    public void ActualizarPerfil_ConDatosValidos_CambiaElPerfil()
+    public void ActualizarPerfil_ConDatosValidos_Actualiza()
     {
         // Arrange
-        var tatuador = Tatuador.Crear(CrearUsuario(), "Ana Ink", "Blackwork", "ana.ink");
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "enzo_tattoos");
 
         // Act
-        tatuador.ActualizarPerfil("Ana Tattoo", "Fine line", "@ana.tattoo");
+        tatuador.ActualizarPerfil("Nuevo Nombre", "Nueva bio", "nuevo_instagram");
 
         // Assert
-        Assert.Equal("Ana Tattoo", tatuador.NombreArtistico);
-        Assert.Equal("Fine line", tatuador.Bio);
-        Assert.Equal("ana.tattoo", tatuador.Instagram);
+        Assert.Equal("Nuevo Nombre", tatuador.NombreArtistico);
+        Assert.Equal("Nueva bio", tatuador.Bio);
+        Assert.Equal("nuevo_instagram", tatuador.Instagram);
     }
 
     [Fact]
-    public void ActualizarPerfil_ConNombreVacio_NoModificaElPerfil()
+    public void ActualizarPerfil_ConNombreVacio_LanzaArgumentException()
     {
         // Arrange
-        var tatuador = Tatuador.Crear(CrearUsuario(), "Ana Ink", "Blackwork", "ana.ink");
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "enzo_tattoos");
 
-        // Act
-        Assert.Throws<ArgumentException>(() =>
-            tatuador.ActualizarPerfil("", "Otra bio", "otra.cuenta"));
-
-        // Assert
-        Assert.Equal("Ana Ink", tatuador.NombreArtistico);
-        Assert.Equal("Blackwork", tatuador.Bio);
-        Assert.Equal("ana.ink", tatuador.Instagram);
+        // Act & Assert
+        var ex = Assert.Throws<ArgumentException>(() =>
+            tatuador.ActualizarPerfil("", "Nueva bio", "nuevo_instagram"));
+        Assert.Contains("no puede estar vacío", ex.Message);
     }
 }
