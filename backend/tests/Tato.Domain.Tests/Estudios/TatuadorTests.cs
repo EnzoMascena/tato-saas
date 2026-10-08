@@ -9,7 +9,7 @@ public class TatuadorTests
     public void Crear_ConDatosValidos_DevuelveTatuador()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act
         var tatuador = Tatuador.Crear(
@@ -39,7 +39,7 @@ public class TatuadorTests
     public void Crear_ConUsuarioSinRolTatuador_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
@@ -53,7 +53,7 @@ public class TatuadorTests
     public void Crear_ConNombreArtisticoVacio_LanzaArgumentException(string nombre)
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
@@ -65,7 +65,7 @@ public class TatuadorTests
     public void Crear_ConNombreArtisticoMayorA100Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
         var nombreLargo = new string('a', 101);
 
         // Act & Assert
@@ -78,7 +78,7 @@ public class TatuadorTests
     public void Crear_ConBioVacia_SePermite()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "", "enzo_tattoos");
@@ -91,7 +91,7 @@ public class TatuadorTests
     public void Crear_ConBioMayorA1000Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
         var bioLarga = new string('a', 1001);
 
         // Act & Assert
@@ -104,7 +104,7 @@ public class TatuadorTests
     public void Crear_ConInstagramConArroba_LaSacaAutomaticamente()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "@enzo_tattoos");
@@ -117,7 +117,7 @@ public class TatuadorTests
     public void Crear_ConInstagramVacio_SePermite()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "");
@@ -130,7 +130,7 @@ public class TatuadorTests
     public void Crear_ConInstagramSoloArroba_LoGuardaComoNull()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
 
         // Act
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "@");
@@ -143,7 +143,7 @@ public class TatuadorTests
     public void Crear_ConInstagramMayorA30Caracteres_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
         var instagramLargo = new string('a', 31);
 
         // Act & Assert
@@ -156,7 +156,7 @@ public class TatuadorTests
     public void ActualizarPerfil_ConDatosValidos_Actualiza()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "enzo_tattoos");
 
         // Act
@@ -172,7 +172,7 @@ public class TatuadorTests
     public void ActualizarPerfil_ConNombreVacio_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno | Rol.Tatuador);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio | Rol.Tatuador);
         var tatuador = Tatuador.Crear(usuario, "Enzo Art", "Mi bio", "enzo_tattoos");
 
         // Act & Assert

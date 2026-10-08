@@ -6,7 +6,7 @@ namespace Tato.Domain.Estudios;
 [Flags]
 public enum Rol
 {
-    Dueno = 1,
+    Duenio = 1,
     Tatuador = 2,
     Administrativo = 4
 }

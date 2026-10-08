@@ -16,14 +16,14 @@ public class UsuarioTests
             estudioId,
             "enzo@example.com",
             "Enzo",
-            Rol.Dueno);
+            Rol.Duenio);
 
         // Assert
         Assert.NotEqual(Guid.Empty, usuario.Id);
         Assert.Equal(estudioId, usuario.EstudioId);
         Assert.Equal("enzo@example.com", usuario.Email);
         Assert.Equal("Enzo", usuario.Nombre);
-        Assert.Equal(Rol.Dueno, usuario.Roles);
+        Assert.Equal(Rol.Duenio, usuario.Roles);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class UsuarioTests
     {
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Usuario.Crear(Guid.Empty, "enzo@example.com", "Enzo", Rol.Dueno));
+            Usuario.Crear(Guid.Empty, "enzo@example.com", "Enzo", Rol.Duenio));
         Assert.Contains("no puede estar vacío", ex.Message);
     }
 
@@ -40,7 +40,7 @@ public class UsuarioTests
     {
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Usuario.Crear(Guid.NewGuid(), "", "Enzo", Rol.Dueno));
+            Usuario.Crear(Guid.NewGuid(), "", "Enzo", Rol.Duenio));
         Assert.Contains("no puede estar vacío", ex.Message);
     }
 
@@ -52,7 +52,7 @@ public class UsuarioTests
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Usuario.Crear(Guid.NewGuid(), emailLargo, "Enzo", Rol.Dueno));
+            Usuario.Crear(Guid.NewGuid(), emailLargo, "Enzo", Rol.Duenio));
         Assert.Contains("no puede exceder 256 caracteres", ex.Message);
     }
 
@@ -61,7 +61,7 @@ public class UsuarioTests
     {
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "", Rol.Dueno));
+            Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "", Rol.Duenio));
         Assert.Contains("no puede estar vacío", ex.Message);
     }
 
@@ -73,7 +73,7 @@ public class UsuarioTests
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
-            Usuario.Crear(Guid.NewGuid(), "enzo@example.com", nombreLargo, Rol.Dueno));
+            Usuario.Crear(Guid.NewGuid(), "enzo@example.com", nombreLargo, Rol.Duenio));
         Assert.Contains("no puede exceder 100 caracteres", ex.Message);
     }
 
@@ -87,12 +87,12 @@ public class UsuarioTests
     }
 
     [Theory]
-    [InlineData(Rol.Dueno)]
+    [InlineData(Rol.Duenio)]
     [InlineData(Rol.Tatuador)]
     [InlineData(Rol.Administrativo)]
-    [InlineData(Rol.Dueno | Rol.Tatuador)]
-    [InlineData(Rol.Dueno | Rol.Administrativo)]
-    [InlineData(Rol.Dueno | Rol.Tatuador | Rol.Administrativo)]
+    [InlineData(Rol.Duenio | Rol.Tatuador)]
+    [InlineData(Rol.Duenio | Rol.Administrativo)]
+    [InlineData(Rol.Duenio | Rol.Tatuador | Rol.Administrativo)]
     public void Crear_ConRolesValidos_Exito(Rol roles)
     {
         // Act & Assert
@@ -101,7 +101,7 @@ public class UsuarioTests
     }
 
     [Fact]
-    public void Crear_SinDueno_ConTatuadorYAdministrativo_LanzaArgumentException()
+    public void Crear_SinDuenio_ConTatuadorYAdministrativo_LanzaArgumentException()
     {
         // Arrange
         var roles = Rol.Tatuador | Rol.Administrativo;
@@ -116,20 +116,20 @@ public class UsuarioTests
     public void CambiarRoles_ConRolesValidos_Cambia()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio);
 
         // Act
-        usuario.CambiarRoles(Rol.Dueno | Rol.Tatuador);
+        usuario.CambiarRoles(Rol.Duenio | Rol.Tatuador);
 
         // Assert
-        Assert.Equal(Rol.Dueno | Rol.Tatuador, usuario.Roles);
+        Assert.Equal(Rol.Duenio | Rol.Tatuador, usuario.Roles);
     }
 
     [Fact]
     public void CambiarRoles_ConRolesInvalidos_LanzaArgumentException()
     {
         // Arrange
-        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Dueno);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "enzo@example.com", "Enzo", Rol.Duenio);
 
         // Act & Assert
         var ex = Assert.Throws<ArgumentException>(() =>
@@ -150,7 +150,7 @@ public class UsuarioTests
     public void Crear_ConEspaciosAlrededor_GuardaLosTextosRecortados()
     {
         // Act
-        var usuario = Usuario.Crear(Guid.NewGuid(), "  enzo@example.com  ", "  Enzo  ", Rol.Dueno);
+        var usuario = Usuario.Crear(Guid.NewGuid(), "  enzo@example.com  ", "  Enzo  ", Rol.Duenio);
 
         // Assert
         Assert.Equal("enzo@example.com", usuario.Email);

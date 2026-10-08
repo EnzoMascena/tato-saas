@@ -11,7 +11,7 @@ public sealed class Usuario
     /// <summary>
     /// Todos los roles que existen. Sirve para rechazar valores que no corresponden a ninguno.
     /// </summary>
-    private const Rol RolesValidos = Rol.Dueno | Rol.Tatuador | Rol.Administrativo;
+    private const Rol RolesValidos = Rol.Duenio | Rol.Tatuador | Rol.Administrativo;
 
     private Usuario(
         Guid id,
@@ -103,12 +103,12 @@ public sealed class Usuario
         if ((roles & ~RolesValidos) != 0)
             throw new ArgumentException("El usuario tiene un rol desconocido.", nameof(roles));
 
-        bool esDueno = roles.HasFlag(Rol.Dueno);
+        bool esDuenio = roles.HasFlag(Rol.Duenio);
         bool esTatuador = roles.HasFlag(Rol.Tatuador);
         bool esAdministrativo = roles.HasFlag(Rol.Administrativo);
 
         // Si no es Dueño, no puede ser Tatuador y Administrativo juntos.
-        if (!esDueno && esTatuador && esAdministrativo)
+        if (!esDuenio && esTatuador && esAdministrativo)
             throw new ArgumentException(
                 "Un usuario que no es Dueño no puede ser Tatuador y Administrativo a la vez.", nameof(roles));
     }
