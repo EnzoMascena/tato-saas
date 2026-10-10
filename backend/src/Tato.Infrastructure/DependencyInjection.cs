@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tato.Application.Estudios;
+using Tato.Infrastructure.Estudios;
 using Tato.Infrastructure.Persistencia;
 
 namespace Tato.Infrastructure;
@@ -28,6 +30,9 @@ public static class DependencyInjection
                 "En desarrollo se carga con dotnet user-secrets en el proyecto Tato.Api.");
 
         services.AddDbContext<TatoDbContext>(options => options.UseSqlServer(cadenaConexion));
+
+        // Adaptadores de los puertos de Application (doc 06, 6.1).
+        services.AddScoped<IRegistroEstudios, RegistroEstudios>();
 
         return services;
     }
