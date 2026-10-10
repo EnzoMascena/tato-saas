@@ -1,41 +1,40 @@
+using Tato.Api.Estudios;
+using Tato.Infrastructure;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// Los comandos de consola (P-19) no levantan el servidor y usan la consola para pedir los datos:
+// se apagan los logs para que no se mezclen con las preguntas.
+var esComando = ComandosEstudios.EsComando(args);
+
+if (esComando)
+    builder.Logging.ClearProviders();
+
 builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddAutenticacion();
+builder.Services.AddEstudios();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+if (esComando)
+{
+    Environment.ExitCode = await ComandosEstudios.EjecutarAsync(app.Services, args);
+    return;
+}
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    // Por la política por defecto todo pide sesión: el documento de OpenAPI se abre explícitamente.
+    app.MapOpenApi().AllowAnonymous();
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseRateLimiter();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapControllers();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
