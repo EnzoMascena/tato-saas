@@ -4,7 +4,7 @@ namespace Tato.Domain.Estudios;
 /// Perfil profesional de un usuario con rol Tatuador. Guarda los datos que el usuario
 /// no tiene y que se muestran en su perfil público del blog (doc 07).
 /// </summary>
-public sealed class Tatuador
+public sealed class Tatuador : IPerteneceAEstudio
 {
     public const int MaxNombreArtistico = 100;
     public const int MaxBio = 1000;

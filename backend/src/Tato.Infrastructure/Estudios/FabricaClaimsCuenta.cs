@@ -29,11 +29,11 @@ public sealed class FabricaClaimsCuenta : UserClaimsPrincipalFactory<CuentaUsuar
     {
         var identidad = await base.GenerateClaimsAsync(cuenta);
 
-        // Al iniciar sesión todavía no hay estudio en la sesión,
-        // así que esta consulta no puede pasar por el filtro por estudio (paso 3).
+        // Al iniciar sesión todavía no hay estudio en la sesión: esta consulta saltea a propósito
+        // el filtro por estudio, y solo ese.
         var usuario = await _contexto.Usuarios
             .AsNoTracking()
-            .IgnoreQueryFilters()
+            .IgnoreQueryFilters([TatoDbContext.FiltroEstudio])
             .SingleAsync(u => u.Id == cuenta.Id);
 
         identidad.AddClaim(new Claim(ClaimsTato.EstudioId, usuario.EstudioId.ToString()));

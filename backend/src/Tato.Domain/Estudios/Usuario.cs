@@ -3,7 +3,7 @@ namespace Tato.Domain.Estudios;
 /// <summary>
 /// Un usuario del estudio, con email, nombre y roles (D-03).
 /// </summary>
-public sealed class Usuario
+public sealed class Usuario : IPerteneceAEstudio
 {
     public const int MaxEmail = 256;
     public const int MaxNombre = 100;
