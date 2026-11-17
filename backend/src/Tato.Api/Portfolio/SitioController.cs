@@ -44,6 +44,7 @@ public sealed class SitioController : ControllerBase
     /// Una página visible por su dirección: el encabezado, el «Sobre» y las páginas relacionadas.
     /// </summary>
     [HttpGet("paginas/{direccion}")]
+    [EndpointName("obtenerPaginaDelSitio")]
     [OutputCache(PolicyName = PoliticaCache)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
@@ -65,6 +66,7 @@ public sealed class SitioController : ControllerBase
     /// Primero las fijadas y después de la más nueva a la más vieja (RN-BLG-13).
     /// </summary>
     [HttpGet("paginas/{direccion}/publicaciones")]
+    [EndpointName("listarPublicacionesDelSitio")]
     [OutputCache(PolicyName = PoliticaCache)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
@@ -89,6 +91,7 @@ public sealed class SitioController : ControllerBase
     /// El detalle de una publicación de la página. 404 si es de otra página o no se ve.
     /// </summary>
     [HttpGet("paginas/{direccion}/publicaciones/{id:guid}")]
+    [EndpointName("obtenerPublicacionDelSitio")]
     [OutputCache(PolicyName = PoliticaCache)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
@@ -111,6 +114,7 @@ public sealed class SitioController : ControllerBase
     /// extensión. No pasa por la caché de salida: los archivos ya los guardan Cloudflare y el navegador.
     /// </summary>
     [HttpGet("fotos/{fotoId:guid}/{tamanio}.webp")]
+    [EndpointName("leerFotoDelSitio")]
     [ProducesResponseType(typeof(Stream), StatusCodes.Status200OK, TipoWebp)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     public async Task<IActionResult> LeerFoto(

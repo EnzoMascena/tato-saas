@@ -30,6 +30,7 @@ public sealed class AutenticacionController : ControllerBase
     /// otra vez después de iniciar o cerrar sesión.
     /// </summary>
     [HttpGet("antiforgery")]
+    [EndpointName("obtenerAntiforgery")]
     [AllowAnonymous]
     public TokenAntiforgeryRespuesta Antiforgery([FromServices] IAntiforgery antiforgery)
     {
@@ -38,6 +39,7 @@ public sealed class AutenticacionController : ControllerBase
     }
 
     [HttpPost("login")]
+    [EndpointName("iniciarSesion")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [AllowAnonymous]
@@ -53,6 +55,7 @@ public sealed class AutenticacionController : ControllerBase
     }
 
     [HttpPost("logout")]
+    [EndpointName("cerrarSesion")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Logout()
     {
@@ -61,6 +64,7 @@ public sealed class AutenticacionController : ControllerBase
     }
 
     [HttpGet("yo")]
+    [EndpointName("obtenerUsuarioActual")]
     public ActionResult<UsuarioActualRespuesta> Yo()
     {
         var id = User.FindFirstValue(ClaimTypes.NameIdentifier);

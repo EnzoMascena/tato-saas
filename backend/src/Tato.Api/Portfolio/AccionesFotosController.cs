@@ -22,6 +22,7 @@ public sealed class AccionesFotosController : ControllerBase
     /// demás acciones.
     /// </summary>
     [HttpPost("{fotoId:guid}/quitar")]
+    [EndpointName("quitarFoto")]
     public async Task<PublicacionVersionRespuesta> Quitar(
         Guid id,
         Guid fotoId,
@@ -33,6 +34,7 @@ public sealed class AccionesFotosController : ControllerBase
     /// Cambia el orden de todas las fotos. La primera de la lista queda como portada.
     /// </summary>
     [HttpPut("orden")]
+    [EndpointName("reordenarFotos")]
     public async Task<PublicacionVersionRespuesta> Reordenar(
         Guid id,
         SolicitudOrdenFotos solicitud,
@@ -40,6 +42,7 @@ public sealed class AccionesFotosController : ControllerBase
         new(await _acciones.ReordenarAsync(id, solicitud.FotoIds, solicitud.Version, cancellationToken));
 
     [HttpPost("{fotoId:guid}/portada")]
+    [EndpointName("elegirPortada")]
     public async Task<PublicacionVersionRespuesta> ElegirPortada(
         Guid id,
         Guid fotoId,

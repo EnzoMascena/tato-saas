@@ -16,6 +16,7 @@ public sealed class PublicacionesController : ControllerBase
     /// «Mis publicaciones»: de la modificada más recientemente a la más vieja, opcionalmente por estado y por tipo.
     /// </summary>
     [HttpGet]
+    [EndpointName("listarPublicaciones")]
     public Task<Pagina<PublicacionResumen>> Listar(
         [FromServices] IConsultasPublicaciones consultas,
         [FromQuery] EstadoPublicacion? estado,
@@ -31,6 +32,7 @@ public sealed class PublicacionesController : ControllerBase
     /// Una publicación con sus fotos. 404 si no existe o es de otro estudio.
     /// </summary>
     [HttpGet("{id:guid}")]
+    [EndpointName("obtenerPublicacion")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     public async Task<ActionResult<PublicacionDetalle>> Obtener(
@@ -47,6 +49,7 @@ public sealed class PublicacionesController : ControllerBase
     /// Crea una publicación en Borrador y devuelve su Id.
     /// </summary>
     [HttpPost]
+    [EndpointName("crearPublicacion")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<PublicacionCreadaRespuesta>> Crear(
         SolicitudPublicacion solicitud,
@@ -63,6 +66,7 @@ public sealed class PublicacionesController : ControllerBase
     /// 409 si alguien la modificó desde que se abrió.
     /// </summary>
     [HttpPut("{id:guid}")]
+    [EndpointName("editarPublicacion")]
     public async Task<PublicacionVersionRespuesta> Editar(
         Guid id,
         SolicitudEditarPublicacion solicitud,
