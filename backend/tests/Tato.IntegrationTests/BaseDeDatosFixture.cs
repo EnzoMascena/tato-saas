@@ -10,11 +10,12 @@ using Testcontainers.MsSql;
 namespace Tato.IntegrationTests;
 
 /// <summary>
-/// Base de datos para los tests de integración, con las migraciones reales aplicadas. Cada corrida usa una base
-/// nueva, con nombre único, que se borra al terminar. Lo comparten todos los tests de una clase.
+/// Base de datos para los tests de integración, con las migraciones reales aplicadas. Cada clase de tests usa una
+/// base nueva, con nombre único, que se borra al terminar. Lo comparten todos los tests de una clase.
 /// <list type="bullet">
 /// <item>Si existe la variable de entorno TATO_TESTS_SQLSERVER, usa ese SQL Server (por ejemplo, el instalado en la máquina).</item>
-/// <item>Si no, levanta en Docker un SQL Server 2025, la misma versión que producción (doc 06).</item>
+/// <item>Si no, levanta en Docker un SQL Server 2025, la misma versión que producción (doc 06). Es uno solo para toda
+/// la corrida: con uno por clase arrancaban 15, de a 6 a la vez, y a veces alguno se caía al arrancar.</item>
 /// </list>
 /// </summary>
 public sealed class BaseDeDatosFixture : IAsyncLifetime
@@ -24,7 +25,12 @@ public sealed class BaseDeDatosFixture : IAsyncLifetime
     /// </summary>
     public const string VariableServidor = "TATO_TESTS_SQLSERVER";
 
-    private MsSqlContainer? _contenedor;
+    /// <summary>
+    /// El SQL Server de Docker, compartido por todas las clases de la corrida. Arranca la primera vez que se pide, y
+    /// nadie lo para: lo borra Ryuk, el contenedor de Testcontainers que limpia todo cuando termina el proceso.
+    /// </summary>
+    private static readonly Lazy<Task<string>> ServidorEnDocker = new(IniciarServidorEnDockerAsync);
+
     private string _cadenaConexion = string.Empty;
 
     /// <summary>
@@ -37,11 +43,7 @@ public sealed class BaseDeDatosFixture : IAsyncLifetime
         var servidor = Environment.GetEnvironmentVariable(VariableServidor);
 
         if (string.IsNullOrWhiteSpace(servidor))
-        {
-            _contenedor = CrearContenedor();
-            await _contenedor.StartAsync();
-            servidor = _contenedor.GetConnectionString();
-        }
+            servidor = await ServidorEnDocker.Value;
 
         // Aunque la cadena traiga Database=TatoDev, se reemplaza: los tests nunca tocan una base existente.
         _cadenaConexion = new SqlConnectionStringBuilder(servidor)
@@ -55,14 +57,11 @@ public sealed class BaseDeDatosFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        if (_cadenaConexion.Length > 0)
-        {
-            await using var contexto = CrearContexto(estudioId: null);
-            await contexto.Database.EnsureDeletedAsync();
-        }
+        if (_cadenaConexion.Length == 0)
+            return;
 
-        if (_contenedor is not null)
-            await _contenedor.DisposeAsync();
+        await using var contexto = CrearContexto(estudioId: null);
+        await contexto.Database.EnsureDeletedAsync();
     }
 
     /// <summary>
@@ -77,14 +76,19 @@ public sealed class BaseDeDatosFixture : IAsyncLifetime
         return new TatoDbContext(opciones, new EstudioFijo(estudioId));
     }
 
-    // El módulo espera a SQL Server con sqlcmd, que la imagen 2025 no trae: se reemplaza por una espera que se
-    // conecta desde acá.
-    private static MsSqlContainer CrearContenedor() =>
-        new MsSqlBuilder("mcr.microsoft.com/mssql/server:2025-latest")
+    private static async Task<string> IniciarServidorEnDockerAsync()
+    {
+        // El módulo espera a SQL Server con sqlcmd, que la imagen 2025 no trae: se reemplaza por una espera que se
+        // conecta desde acá.
+        var contenedor = new MsSqlBuilder("mcr.microsoft.com/mssql/server:2025-latest")
             .WithWaitStrategy(Wait.ForUnixContainer().AddCustomWaitStrategy(
                 new AceptaConexiones(),
                 espera => espera.WithTimeout(TimeSpan.FromMinutes(2))))
             .Build();
+
+        await contenedor.StartAsync();
+        return contenedor.GetConnectionString();
+    }
 
     /// <summary>
     /// Reemplaza a la sesión en los tests: siempre devuelve el estudio que recibe.

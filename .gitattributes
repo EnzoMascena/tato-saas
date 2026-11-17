@@ -1,0 +1,4 @@
+# Finales de línea LF en el repo y en cualquier PC, aunque Git para Windows traiga core.autocrlf=true:
+# el .editorconfig pide LF (con CRLF, dotnet format falla) y un .sh con CRLF no corre en un contenedor Linux.
+# text=auto deja los binarios (fotos, por ejemplo) como están.
+* text=auto eol=lf

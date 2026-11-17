@@ -219,6 +219,7 @@ tato-saas/
 │       └── api-client/              # cliente generado desde OpenAPI
 ├── docs/                            # requerimientos en Markdown (docs 04, 05 y 07 por ahora)
 ├── .github/                         # pendiente: CI y Dependabot
+├── .gitattributes                   # finales de línea LF en cualquier PC
 └── README.md
 ```
 
@@ -233,7 +234,7 @@ En el front, el código de cada app se organiza por funcionalidad (`src/features
 ### Requisitos
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- Node.js 24 LTS (la versión está fijada en `.nvmrc`) y pnpm
+- Node.js 24 LTS (la versión está fijada en `.nvmrc`) y pnpm con Corepack (`corepack enable`; la versión está fijada en `packageManager`, en `frontend/package.json`)
 - SQL Server 2025 (alcanza con una instancia local)
 - Docker, para los tests de integración
 - Recomendado: VS Code con C# Dev Kit y la extensión MSSQL
@@ -289,7 +290,7 @@ cd backend && dotnet test    # requiere Docker corriendo (Testcontainers)
 cd frontend && pnpm test
 ```
 
-Los tests de integración levantan un SQL Server 2025 en Docker. Para usar uno ya instalado, cargá su cadena de conexión en la variable `TATO_TESTS_SQLSERVER`: cada corrida crea una base nueva con nombre único y la borra al terminar, así nunca toca la de desarrollo.
+Los tests de integración levantan un solo SQL Server 2025 en Docker para toda la corrida. Para usar uno ya instalado, cargá su cadena de conexión en la variable `TATO_TESTS_SQLSERVER`. En los dos casos, cada clase de tests crea una base nueva con nombre único y la borra al terminar, así nunca toca la de desarrollo.
 
 ---
 
