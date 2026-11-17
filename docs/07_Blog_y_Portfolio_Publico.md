@@ -4,7 +4,7 @@ Requerimientos de la primera entrega: las páginas públicas del estudio y de su
 
 | Versión | Fecha | Estado | Relacionados |
 | --- | --- | --- | --- |
-| 2.4 | 29 de octubre de 2026 | Aprobado para la versión 1 | Docs 01, 04, 05 y 06 |
+| 2.5 | 17 de noviembre de 2026 | Aprobado para la versión 1 | Docs 01, 04, 05 y 06 |
 
 > **Prioridad (D-46):** el blog es la primera entrega y tiene que estar online antes del **17 de noviembre de 2026**, cuando la tatuadora del estudio piloto viaja a tatuar a Bolivia. El MVP de gestión sigue después.
 
@@ -99,6 +99,8 @@ Los datos de cada página (nombre, bio, foto, contacto y «Sobre») los edita su
 ## 7. Sitio público
 
 Casi todas las visitas van a llegar desde el link de la bio de Instagram, en el celular: todo se diseña primero para el celular.
+
+El wireframe de estas pantallas está en [`docs/wireframes/sitio/`](wireframes/sitio/README.md), para revisarlo con los artistas del estudio piloto. Las decisiones que agrega (la grilla en 4:5, el alfiler de las fijadas y la barra del detalle) se confirman con ellos antes de pasarlas a este documento.
 
 ### 7.1 Encabezado
 
@@ -257,6 +259,7 @@ Salen del Instagram de cada uno. Se usan en la etapa de diseño, después de apr
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 2.5 | 17/11/2026 | El wireframe del sitio, en `docs/wireframes/sitio/` (sección 7), para revisarlo con los artistas. |
 | 2.4 | 29/10/2026 | Endpoints públicos implementados: RN-BLG-01, RN-BLG-02, RN-BLG-12 y RN-BLG-13. Decisión D-57: la caché del sitio. |
 | 2.3 | 29/10/2026 | La Página pública, implementada con sus dos fotos (R-16): el panel las sube, las reemplaza y las quita. |
 | 2.2 | 29/10/2026 | Plan nuevo hasta el 17/11 (sección 11): el backend se termina hasta el 2/11; el panel y el primer despliegue van del 3 al 9/11, y el sitio, del 10 al 16/11. Se aplica el primer recorte: tema visual común para las tres páginas. |
