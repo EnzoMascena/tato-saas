@@ -4,8 +4,8 @@ Plataforma SaaS multi-tenant para la gestión de estudios de tatuajes.
 
 La primera entrega es el **blog y portfolio público**: una página parecida a un perfil de Instagram para cada estudio y para cada artista. Sobre la misma base llega después el **MVP de gestión**: agenda, señas, clientes, tatuajes y sesiones.
 
-> **Estado:** en desarrollo. Versión 1 (blog) online antes del **17 de noviembre de 2026** (D-46).
-> Listo: login, estudios, usuarios, aislamiento por estudio y el backend del panel: publicaciones con fotos, tipo Trabajo o Blog, permisos por página y «Mi página», con la foto o logo y la foto de «Sobre». También los endpoints del sitio público, con caché. Sigue, hasta el 2/11: terminar el backend con la preparación para producción y las vistas previas. Después, el panel y el sitio.
+> **Estado:** en desarrollo. La versión 1 (blog) tenía que estar online el **17 de noviembre de 2026** (D-46): ahora lo urgente es poner online el panel, para que los artistas carguen su contenido mientras se termina el sitio.
+> Listo: login, estudios, usuarios, aislamiento por estudio y el backend del panel: publicaciones con fotos, tipo Trabajo o Blog, permisos por página y «Mi página», con la foto o logo y la foto de «Sobre». También los endpoints del sitio público, con caché, y la base del panel: inicio de sesión, sesión y navegación. Sigue: «Mis publicaciones», crear y editar publicaciones, el primer despliegue y «Mi página». Después, el sitio.
 
 ---
 
@@ -127,8 +127,8 @@ Todo exige sesión, y todo es del estudio de la sesión. Los pedidos que modific
 | `POST` | `/api/publicaciones` | Crea en Borrador (`201`) |
 | `PUT` | `/api/publicaciones/{id}` | Reemplaza los datos (manda el formulario completo y la `version`) |
 | `POST` | `/api/publicaciones/{id}/consentimiento` | Confirma el consentimiento del cliente (RN-BLG-03) |
-| `POST` | `/api/publicaciones/{id}/publicar` | La publica: necesita fotos y consentimiento. Solo Dueño o Administrativo |
-| `POST` | `/api/publicaciones/{id}/ocultar` | La saca del sitio sin borrarla (RN-BLG-06). Solo Dueño o Administrativo |
+| `POST` | `/api/publicaciones/{id}/publicar` | La publica: necesita fotos y consentimiento. En la página de un artista, solo su artista; en la del estudio, un Dueño o un Administrativo (D-51) |
+| `POST` | `/api/publicaciones/{id}/ocultar` | La saca del sitio sin borrarla (RN-BLG-06). Los mismos permisos que para publicar |
 | `POST` | `/api/publicaciones/{id}/fotos` | Sube una foto (`multipart/form-data`: `archivo` y `version`) |
 | `POST` | `/api/publicaciones/{id}/fotos/{fotoId}/quitar` | Quita la foto y borra sus archivos |
 | `PUT` | `/api/publicaciones/{id}/fotos/orden` | Reordena: la primera queda como portada |
@@ -214,9 +214,9 @@ tato-saas/
 │   ├── apps/
 │   │   ├── sitio/                   # sitio público del estudio (www)
 │   │   └── panel/                   # panel privado (subdominio panel); crece hasta ser la app del MVP
-│   └── packages/                    # pendiente
-│       ├── ui/                      # componentes compartidos (Tailwind + shadcn/ui)
-│       └── api-client/              # cliente generado desde OpenAPI
+│   └── packages/
+│       ├── ui/                      # pendiente: componentes compartidos (Tailwind + shadcn/ui)
+│       └── api-client/              # cliente de la API, generado con Orval desde openapi.json (D-58)
 ├── docs/                            # requerimientos en Markdown (docs 04, 05 y 07 por ahora)
 ├── .github/                         # pendiente: CI y Dependabot
 ├── .gitattributes                   # finales de línea LF en cualquier PC
@@ -276,12 +276,21 @@ Para probarla desde el navegador, Swagger UI está en `https://localhost:7239/sw
 cd frontend
 pnpm install
 
+pnpm dev:panel               # panel privado, en https://localhost:5173 (con la API levantada)
 pnpm dev:sitio               # sitio público
-pnpm dev:panel               # panel privado
-pnpm api:generate            # pendiente: regenera el cliente tipado desde el OpenAPI de la API
+pnpm test                    # tests de todos los paquetes
+pnpm api:descargar           # con la API levantada: actualiza openapi.json y regenera el cliente
+pnpm api:generate            # regenera el cliente desde openapi.json, sin la API
 ```
 
-En desarrollo, Vite hace de proxy de `/api` hacia la API, así la cookie de sesión es del mismo origen y no hace falta configurar CORS.
+Para usar el panel, levantá la API y el panel en dos terminales:
+
+1. Desde `backend/`: `dotnet run --project src/Tato.Api --launch-profile https`.
+2. Desde `frontend/`: `pnpm dev:panel`, y abrí `https://localhost:5173`. Las cuentas se crean con `alta-estudio` y `alta-usuario` (ver «Backend»).
+
+Vite sirve el panel por HTTPS con el certificado de desarrollo de .NET, que exporta la primera vez a `%APPDATA%\ASP.NET\https`, fuera del repo, y le pasa `/api` a la API. Así la cookie de sesión `__Host-` es del mismo origen y no hace falta CORS.
+
+El cliente de la API (`packages/api-client`) lo genera Orval desde `openapi.json`, una copia versionada del OpenAPI (D-58). Cuando cambia un endpoint, corré `pnpm api:descargar` con la API levantada y commiteá la copia y el cliente nuevos.
 
 ### Tests
 
@@ -301,7 +310,7 @@ Nada hardcodeado (D-34):
 - **Parámetros de negocio**: viven en la configuración de cada estudio, en la base, con valores por defecto (por ejemplo, el máximo de fotos por publicación, 10 por defecto). Nunca en el código.
 - **Parámetros técnicos**: `appsettings.json` tipados con el patrón Options y validados al arrancar: con una configuración imposible, la API no levanta. Por ejemplo, `Fotos` (peso y píxeles máximos, lado de cada tamaño, calidad de WebP), `Sitio` (tiempos de caché y largo del comienzo del texto del Blog) y `Almacenamiento:Disco:CarpetaRaiz`.
 - **Secretos**: nunca en el repositorio. `dotnet user-secrets` en desarrollo; variables de entorno en producción.
-- **Front**: variables en `.env.local` (ignorado por git), con un `.env.example` versionado como referencia. Todo lo que llega al front es público: ahí no van secretos.
+- **Front**: por ahora no usa variables, porque llama siempre a `/api`, en el mismo origen. Si hacen falta, van en `.env.local` (ignorado por git), con un `.env.example` versionado como referencia. Todo lo que llega al front es público: ahí no van secretos.
 
 ---
 
@@ -334,6 +343,9 @@ docs: cerrar P-18 con el hosting elegido
   - [ ] Listo para producción: configuración, Docker, backups y guía de despliegue
   - [ ] Vistas previas y SEO
 - [ ] **3 al 9/11**: el panel, con su wireframe, y el primer despliegue (P-18)
+  - [x] Base del panel: inicio de sesión, sesión y navegación
+  - [ ] «Mis publicaciones», crear y editar publicaciones, y «Mi página»
+  - [ ] Primer despliegue
 - [ ] **10 al 16/11**: el sitio público y las pruebas en celulares
 - [ ] **17/11**: online
 
