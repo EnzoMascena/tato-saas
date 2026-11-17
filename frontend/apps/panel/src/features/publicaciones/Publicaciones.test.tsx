@@ -97,4 +97,36 @@ describe('Mis publicaciones', () => {
 
     await screen.findByText('No hay publicaciones para mostrar.')
   })
+
+  it('Ver más trae la página siguiente, y desaparece cuando ya está todo', async () => {
+    const pedidos = abrirPublicaciones(artista, (url) =>
+      url.searchParams.get('pagina') === '2'
+        ? pagina([publicacion('p3')], 3, 2)
+        : pagina([publicacion('p1'), publicacion('p2')], 3),
+    )
+    await screen.findByText('Trabajo p2')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Ver más' }))
+
+    await screen.findByText('Trabajo p3')
+    expect(screen.getAllByRole('listitem')).toHaveLength(3)
+    expect(pedidos().at(-1)?.get('pagina')).toBe('2')
+    expect(screen.queryByRole('button', { name: 'Ver más' })).toBeNull()
+  })
+
+  it('los botones para crear llevan a la página elegida', async () => {
+    abrirPublicaciones(artista)
+    await screen.findByText('Trabajo p1')
+
+    expect(screen.getByRole('link', { name: 'Nuevo trabajo' }).getAttribute('href')).toBe(
+      '/publicaciones/nueva?tipo=Trabajo',
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Estudio' }))
+
+    await waitFor(() =>
+      expect(screen.getByRole('link', { name: 'Nueva entrada de blog' }).getAttribute('href')).toBe(
+        '/publicaciones/nueva?tipo=Blog&de=estudio',
+      ),
+    )
+  })
 })

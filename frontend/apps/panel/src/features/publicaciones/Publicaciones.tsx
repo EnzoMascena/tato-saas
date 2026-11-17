@@ -8,7 +8,7 @@ import {
 } from '@tato/api-client'
 import { Pin } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { useSesion } from '@/features/sesion/sesion'
 
 const estados = [
@@ -76,10 +76,22 @@ export function Publicaciones() {
   }
 
   const publicaciones = lista.data?.pages.flatMap((pagina) => pagina.items) ?? []
+  // La publicación nueva va a la página elegida.
+  const nueva = (tipoNueva: TipoPublicacion) =>
+    `/publicaciones/nueva?tipo=${tipoNueva}${enElEstudio ? '&de=estudio' : ''}`
 
   return (
     <div className="flex flex-col gap-4 p-4">
       <h1 className="text-xl font-semibold">Publicaciones</h1>
+
+      <div className="flex flex-wrap gap-2">
+        <Link className={buttonVariants()} to={nueva(TipoPublicacion.Trabajo)}>
+          Nuevo trabajo
+        </Link>
+        <Link className={buttonVariants({ variant: 'outline' })} to={nueva(TipoPublicacion.Blog)}>
+          Nueva entrada de blog
+        </Link>
+      </div>
 
       {tatuadorId && (
         <Opciones
@@ -109,6 +121,12 @@ export function Publicaciones() {
             </li>
           ))}
         </ul>
+      )}
+
+      {lista.hasNextPage && (
+        <Button variant="outline" disabled={lista.isFetchingNextPage} onClick={() => void lista.fetchNextPage()}>
+          {lista.isFetchingNextPage ? 'Cargando…' : 'Ver más'}
+        </Button>
       )}
     </div>
   )
