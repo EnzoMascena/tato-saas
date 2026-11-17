@@ -13,20 +13,33 @@ namespace Tato.Api.Portfolio;
 public sealed class PublicacionesController : ControllerBase
 {
     /// <summary>
-    /// «Mis publicaciones»: de la modificada más recientemente a la más vieja, opcionalmente por estado y por tipo.
+    /// «Mis publicaciones»: de la modificada más recientemente a la más vieja, opcionalmente por estado, por tipo y
+    /// por página (RN-BLG-12): la de un artista (tatuadorId) o la del estudio (delEstudio). 400 si vienen las dos.
     /// </summary>
     [HttpGet]
     [EndpointName("listarPublicaciones")]
-    public Task<Pagina<PublicacionResumen>> Listar(
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest, "application/problem+json")]
+    public async Task<ActionResult<Pagina<PublicacionResumen>>> Listar(
         [FromServices] IConsultasPublicaciones consultas,
         [FromQuery] EstadoPublicacion? estado,
         [FromQuery] TipoPublicacion? tipo,
+        [FromQuery] Guid? tatuadorId,
+        [FromQuery] bool delEstudio = false,
         [FromQuery] int pagina = 1,
         [FromQuery] int tamanio = Paginacion.TamanioPorDefecto,
-        CancellationToken cancellationToken = default) =>
-        consultas.ListarAsync(
-            new FiltroPublicaciones(estado, new Paginacion(pagina, tamanio), tipo),
+        CancellationToken cancellationToken = default)
+    {
+        if (tatuadorId is not null && delEstudio)
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                title: "Los datos enviados no son válidos.",
+                detail: "Elegí una sola página: la de un artista o la del estudio.");
+
+        return await consultas.ListarAsync(
+            new FiltroPublicaciones(estado, new Paginacion(pagina, tamanio), tipo, tatuadorId, delEstudio),
             cancellationToken);
+    }
 
     /// <summary>
     /// Una publicación con sus fotos. 404 si no existe o es de otro estudio.

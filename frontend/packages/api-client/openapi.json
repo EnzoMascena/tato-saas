@@ -1060,6 +1060,22 @@
             }
           },
           {
+            "name": "tatuadorId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "delEstudio",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
             "name": "pagina",
             "in": "query",
             "schema": {
@@ -1095,6 +1111,16 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaginaOfPublicacionResumen"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -2268,7 +2294,8 @@
           "fechaTrabajo",
           "actualizadaEn",
           "portadaFotoId",
-          "cantidadFotos"
+          "cantidadFotos",
+          "tatuadorId"
         ],
         "type": "object",
         "properties": {
@@ -2309,6 +2336,13 @@
           "cantidadFotos": {
             "type": "integer",
             "format": "int32"
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
           }
         }
       },
