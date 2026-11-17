@@ -219,6 +219,7 @@ tato-saas/
 │       └── api-client/              # cliente generado desde OpenAPI
 ├── docs/                            # requerimientos en Markdown (docs 04, 05 y 07 por ahora)
 ├── .github/                         # pendiente: CI y Dependabot
+├── .gitattributes                   # finales de línea LF en cualquier PC
 └── README.md
 ```
 
