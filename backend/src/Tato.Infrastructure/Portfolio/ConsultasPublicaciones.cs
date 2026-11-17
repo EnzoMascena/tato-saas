@@ -31,6 +31,12 @@ internal sealed class ConsultasPublicaciones : IConsultasPublicaciones
         if (filtro.Tipo is { } tipo)
             consulta = consulta.Where(p => p.Tipo == tipo);
 
+        if (filtro.TatuadorId is { } tatuadorId)
+            consulta = consulta.Where(p => p.TatuadorId == tatuadorId);
+
+        if (filtro.DelEstudio)
+            consulta = consulta.Where(p => p.TatuadorId == null);
+
         // Primero el total (para la paginación), después solo la página pedida.
         var total = await consulta.CountAsync(cancellationToken);
 
@@ -47,7 +53,8 @@ internal sealed class ConsultasPublicaciones : IConsultasPublicaciones
                 p.FechaTrabajo,
                 p.ActualizadaEn,
                 p.Fotos.OrderBy(f => f.Orden).Select(f => (Guid?)f.Id).FirstOrDefault(),
-                p.Fotos.Count()))
+                p.Fotos.Count(),
+                p.TatuadorId))
             .ToListAsync(cancellationToken);
 
         return new Pagina<PublicacionResumen>(

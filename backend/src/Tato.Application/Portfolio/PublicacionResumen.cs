@@ -7,6 +7,7 @@ namespace Tato.Application.Portfolio;
 /// </summary>
 /// <param name="Tipo">Trabajo o Blog (D-50).</param>
 /// <param name="PortadaFotoId">La primera foto, para mostrar la miniatura. Null si todavía no tiene fotos.</param>
+/// <param name="TatuadorId">El artista de la página donde va, o null si va en la del estudio (RN-BLG-12).</param>
 public sealed record PublicacionResumen(
     Guid Id,
     string Titulo,
@@ -16,4 +17,5 @@ public sealed record PublicacionResumen(
     DateOnly? FechaTrabajo,
     DateTimeOffset ActualizadaEn,
     Guid? PortadaFotoId,
-    int CantidadFotos);
+    int CantidadFotos,
+    Guid? TatuadorId);

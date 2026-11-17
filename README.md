@@ -122,7 +122,7 @@ Todo exige sesión, y todo es del estudio de la sesión. Los pedidos que modific
 
 | Método | Ruta | Qué hace |
 | --- | --- | --- |
-| `GET` | `/api/publicaciones?estado=&tipo=&pagina=&tamanio=` | «Mis publicaciones», de la modificada más recientemente a la más vieja |
+| `GET` | `/api/publicaciones?estado=&tipo=&tatuadorId=&delEstudio=&pagina=&tamanio=` | «Mis publicaciones», de la modificada más recientemente a la más vieja. Por página (RN-BLG-12): `tatuadorId` para la de un artista y `delEstudio=true` para la del estudio; sin ninguno, todas, y con los dos, `400`. Cada fila trae su `tatuadorId`: null si es de la del estudio |
 | `GET` | `/api/publicaciones/{id}` | Detalle, con sus fotos en orden y su `version` |
 | `POST` | `/api/publicaciones` | Crea en Borrador (`201`) |
 | `PUT` | `/api/publicaciones/{id}` | Reemplaza los datos (manda el formulario completo y la `version`) |
