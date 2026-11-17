@@ -1,6 +1,7 @@
 {
   "name": "tato-frontend",
   "private": true,
+  "packageManager": "pnpm@12.21.0",
   "scripts": {
     "dev:sitio": "pnpm --filter @tato/sitio dev",
     "dev:panel": "pnpm --filter @tato/panel dev",

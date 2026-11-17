@@ -234,7 +234,7 @@ En el front, el código de cada app se organiza por funcionalidad (`src/features
 ### Requisitos
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
-- Node.js 24 LTS (la versión está fijada en `.nvmrc`) y pnpm
+- Node.js 24 LTS (la versión está fijada en `.nvmrc`) y pnpm con Corepack (`corepack enable`; la versión está fijada en `packageManager`, en `frontend/package.json`)
 - SQL Server 2025 (alcanza con una instancia local)
 - Docker, para los tests de integración
 - Recomendado: VS Code con C# Dev Kit y la extensión MSSQL
