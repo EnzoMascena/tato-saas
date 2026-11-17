@@ -162,6 +162,8 @@ export interface PublicacionResumen {
   /** @nullable */
   portadaFotoId: string | null;
   cantidadFotos: number;
+  /** @nullable */
+  tatuadorId: string | null;
 }
 
 export interface PaginaOfPublicacionResumen {
@@ -358,6 +360,8 @@ export type SubirFotoPaginaBody = {
 export type ListarPublicacionesParams = {
   estado?: EstadoPublicacion;
   tipo?: TipoPublicacion;
+  tatuadorId?: string;
+  delEstudio?: boolean;
   pagina?: number;
   tamanio?: number;
 };
@@ -1723,7 +1727,7 @@ export const getListarPublicacionesQueryKey = (params?: ListarPublicacionesParam
     }
 
 
-export const getListarPublicacionesQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getListarPublicacionesQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<ProblemDetails>>(params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1742,10 +1746,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListarPublicacionesQueryResult = NonNullable<Awaited<ReturnType<typeof listarPublicaciones>>>
-export type ListarPublicacionesQueryError = ErrorType<unknown>
+export type ListarPublicacionesQueryError = ErrorType<ProblemDetails>
 
 
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<ProblemDetails>>(
  params: undefined |  ListarPublicacionesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPublicaciones>>,
@@ -1755,7 +1759,7 @@ export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<ProblemDetails>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPublicaciones>>,
@@ -1765,11 +1769,11 @@ export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<ProblemDetails>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<ProblemDetails>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
