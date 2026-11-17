@@ -1,0 +1,2729 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Tato.Api | v1",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:7239/"
+    }
+  ],
+  "paths": {
+    "/api/publicaciones/{id}/fotos/{fotoId}/quitar": {
+      "post": {
+        "tags": [
+          "AccionesFotos"
+        ],
+        "operationId": "quitarFoto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "fotoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/fotos/orden": {
+      "put": {
+        "tags": [
+          "AccionesFotos"
+        ],
+        "operationId": "reordenarFotos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudOrdenFotos"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudOrdenFotos"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudOrdenFotos"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/fotos/{fotoId}/portada": {
+      "post": {
+        "tags": [
+          "AccionesFotos"
+        ],
+        "operationId": "elegirPortada",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "fotoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/consentimiento": {
+      "post": {
+        "tags": [
+          "AccionesPublicacion"
+        ],
+        "operationId": "confirmarConsentimiento",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/publicar": {
+      "post": {
+        "tags": [
+          "AccionesPublicacion"
+        ],
+        "operationId": "publicarPublicacion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/ocultar": {
+      "post": {
+        "tags": [
+          "AccionesPublicacion"
+        ],
+        "operationId": "ocultarPublicacion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}/fotos": {
+      "post": {
+        "tags": [
+          "Fotos"
+        ],
+        "operationId": "subirFoto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "archivo": {
+                        "$ref": "#/components/schemas/IFormFile"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoSubida"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoSubida"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoSubida"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/fotos/{fotoId}/{tamanio}": {
+      "get": {
+        "tags": [
+          "Fotos"
+        ],
+        "operationId": "leerFoto",
+        "parameters": [
+          {
+            "name": "fotoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "tamanio",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TamanioFoto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stream"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas": {
+      "get": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "listarPaginas",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaginaDetalle"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaginaDetalle"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaginaDetalle"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "crearPagina",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPagina"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPagina"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPagina"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaCreadaRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaCreadaRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaCreadaRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}": {
+      "get": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "obtenerPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDetalle"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDetalle"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDetalle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "editarPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPagina"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPagina"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPagina"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}/direccion": {
+      "put": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "cambiarDireccion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudDireccion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudDireccion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudDireccion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}/mostrar": {
+      "post": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "mostrarPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}/ocultar": {
+      "post": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "ocultarPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}/fotos/{lugar}": {
+      "post": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "subirFotoPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "lugar",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LugarFotoPagina"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "archivo": {
+                        "$ref": "#/components/schemas/IFormFile"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "version": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoPaginaSubida"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoPaginaSubida"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FotoPaginaSubida"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/paginas/{id}/fotos/{lugar}/quitar": {
+      "post": {
+        "tags": [
+          "Paginas"
+        ],
+        "operationId": "quitarFotoPagina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "lugar",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LugarFotoPagina"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "operationId": "listarPublicaciones",
+        "parameters": [
+          {
+            "name": "estado",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/EstadoPublicacion"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/TipoPublicacion"
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanio",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionResumen"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionResumen"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionResumen"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "operationId": "crearPublicacion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPublicacion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPublicacion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudPublicacion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionCreadaRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionCreadaRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionCreadaRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "operationId": "obtenerPublicacion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDetalle"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDetalle"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDetalle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "operationId": "editarPublicacion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPublicacion"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPublicacion"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudEditarPublicacion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionVersionRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publico/paginas/{direccion}": {
+      "get": {
+        "tags": [
+          "Sitio"
+        ],
+        "operationId": "obtenerPaginaDelSitio",
+        "parameters": [
+          {
+            "name": "direccion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDelSitio"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDelSitio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaDelSitio"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publico/paginas/{direccion}/publicaciones": {
+      "get": {
+        "tags": [
+          "Sitio"
+        ],
+        "operationId": "listarPublicacionesDelSitio",
+        "parameters": [
+          {
+            "name": "direccion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tipo",
+            "in": "query",
+            "schema": {
+              "default": "Trabajo",
+              "$ref": "#/components/schemas/TipoPublicacion"
+            }
+          },
+          {
+            "name": "pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "tamanio",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionDelSitio"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionDelSitio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginaOfPublicacionDelSitio"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publico/paginas/{direccion}/publicaciones/{id}": {
+      "get": {
+        "tags": [
+          "Sitio"
+        ],
+        "operationId": "obtenerPublicacionDelSitio",
+        "parameters": [
+          {
+            "name": "direccion",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDelSitioDetalle"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDelSitioDetalle"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicacionDelSitioDetalle"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/publico/fotos/{fotoId}/{tamanio}.webp": {
+      "get": {
+        "tags": [
+          "Sitio"
+        ],
+        "operationId": "leerFotoDelSitio",
+        "parameters": [
+          {
+            "name": "fotoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "tamanio",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TamanioFoto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "image/webp": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stream"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/antiforgery": {
+      "get": {
+        "tags": [
+          "Autenticacion"
+        ],
+        "operationId": "obtenerAntiforgery",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenAntiforgeryRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenAntiforgeryRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenAntiforgeryRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticacion"
+        ],
+        "operationId": "iniciarSesion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudLogin"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudLogin"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SolicitudLogin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": [
+          "Autenticacion"
+        ],
+        "operationId": "cerrarSesion",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/auth/yo": {
+      "get": {
+        "tags": [
+          "Autenticacion"
+        ],
+        "operationId": "obtenerUsuarioActual",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioActualRespuesta"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioActualRespuesta"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioActualRespuesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EnlacePagina": {
+        "required": [
+          "direccion",
+          "nombre",
+          "foto"
+        ],
+        "type": "object",
+        "properties": {
+          "direccion": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "foto": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FotoConMedidas"
+              }
+            ]
+          }
+        }
+      },
+      "EstadoPublicacion": {
+        "enum": [
+          "Borrador",
+          "Publicada",
+          "Oculta"
+        ]
+      },
+      "FotoConMedidas": {
+        "required": [
+          "id",
+          "ancho",
+          "alto"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "ancho": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alto": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FotoDePublicacion": {
+        "required": [
+          "id",
+          "orden",
+          "ancho",
+          "alto"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ancho": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "alto": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "FotoPaginaSubida": {
+        "required": [
+          "foto",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "foto": {
+            "$ref": "#/components/schemas/FotoConMedidas"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "FotoSubida": {
+        "required": [
+          "foto",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "foto": {
+            "$ref": "#/components/schemas/FotoDePublicacion"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "IFormFile": {
+        "type": "string",
+        "format": "binary"
+      },
+      "LugarFotoPagina": {
+        "enum": [
+          "Encabezado",
+          "Sobre"
+        ]
+      },
+      "PaginaCreadaRespuesta": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PaginaDelSitio": {
+        "required": [
+          "direccion",
+          "esDelEstudio",
+          "nombre",
+          "bio",
+          "foto",
+          "instagram",
+          "whatsApp",
+          "sobre",
+          "fotoSobre",
+          "ubicacion",
+          "horarios",
+          "estudio",
+          "artistas"
+        ],
+        "type": "object",
+        "properties": {
+          "direccion": {
+            "type": "string"
+          },
+          "esDelEstudio": {
+            "type": "boolean"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "bio": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "foto": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FotoConMedidas"
+              }
+            ]
+          },
+          "instagram": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "whatsApp": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sobre": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fotoSobre": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FotoConMedidas"
+              }
+            ]
+          },
+          "ubicacion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "horarios": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "estudio": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/EnlacePagina"
+              }
+            ]
+          },
+          "artistas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EnlacePagina"
+            }
+          }
+        }
+      },
+      "PaginaDetalle": {
+        "required": [
+          "id",
+          "esDelEstudio",
+          "tatuadorId",
+          "direccion",
+          "nombre",
+          "bio",
+          "instagram",
+          "whatsApp",
+          "sobre",
+          "ubicacion",
+          "horarios",
+          "foto",
+          "fotoSobre",
+          "visible",
+          "actualizadaEn",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "esDelEstudio": {
+            "type": "boolean"
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "direccion": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "bio": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instagram": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "whatsApp": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sobre": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "ubicacion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "horarios": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "foto": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FotoConMedidas"
+              }
+            ]
+          },
+          "fotoSobre": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FotoConMedidas"
+              }
+            ]
+          },
+          "visible": {
+            "type": "boolean"
+          },
+          "actualizadaEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "PaginaOfPublicacionDelSitio": {
+        "required": [
+          "items",
+          "numeroPagina",
+          "tamanioPagina",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicacionDelSitio"
+            }
+          },
+          "numeroPagina": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tamanioPagina": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PaginaOfPublicacionResumen": {
+        "required": [
+          "items",
+          "numeroPagina",
+          "tamanioPagina",
+          "total"
+        ],
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicacionResumen"
+            }
+          },
+          "numeroPagina": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tamanioPagina": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaginas": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PaginaVersionRespuesta": {
+        "required": [
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "PublicacionCreadaRespuesta": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PublicacionDelSitio": {
+        "required": [
+          "id",
+          "titulo",
+          "publicadaEn",
+          "extracto",
+          "portada"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "publicadaEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "extracto": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "portada": {
+            "$ref": "#/components/schemas/FotoConMedidas"
+          }
+        }
+      },
+      "PublicacionDelSitioDetalle": {
+        "required": [
+          "id",
+          "tipo",
+          "titulo",
+          "descripcion",
+          "publicadaEn",
+          "fotos"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoPublicacion"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "publicadaEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fotos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FotoConMedidas"
+            }
+          }
+        }
+      },
+      "PublicacionDetalle": {
+        "required": [
+          "id",
+          "titulo",
+          "tipo",
+          "descripcion",
+          "fechaTrabajo",
+          "estiloId",
+          "zonaCuerpoId",
+          "tatuadorId",
+          "destacada",
+          "estado",
+          "tieneConsentimiento",
+          "publicadaEn",
+          "actualizadaEn",
+          "version",
+          "fotos"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoPublicacion"
+          },
+          "descripcion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fechaTrabajo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "estiloId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "zonaCuerpoId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "destacada": {
+            "type": "boolean"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoPublicacion"
+          },
+          "tieneConsentimiento": {
+            "type": "boolean"
+          },
+          "publicadaEn": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "actualizadaEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "version": {
+            "type": "string"
+          },
+          "fotos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FotoDePublicacion"
+            }
+          }
+        }
+      },
+      "PublicacionResumen": {
+        "required": [
+          "id",
+          "titulo",
+          "tipo",
+          "estado",
+          "destacada",
+          "fechaTrabajo",
+          "actualizadaEn",
+          "portadaFotoId",
+          "cantidadFotos"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "titulo": {
+            "type": "string"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoPublicacion"
+          },
+          "estado": {
+            "$ref": "#/components/schemas/EstadoPublicacion"
+          },
+          "destacada": {
+            "type": "boolean"
+          },
+          "fechaTrabajo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "actualizadaEn": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "portadaFotoId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "cantidadFotos": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PublicacionVersionRespuesta": {
+        "required": [
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudDireccion": {
+        "required": [
+          "direccion",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "direccion": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudEditarPagina": {
+        "required": [
+          "nombre",
+          "bio",
+          "instagram",
+          "whatsApp",
+          "sobre",
+          "ubicacion",
+          "horarios",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "bio": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instagram": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "whatsApp": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sobre": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "ubicacion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "horarios": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudEditarPublicacion": {
+        "required": [
+          "titulo",
+          "descripcion",
+          "fechaTrabajo",
+          "estiloId",
+          "zonaCuerpoId",
+          "tatuadorId",
+          "destacada",
+          "tipo",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fechaTrabajo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "estiloId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "zonaCuerpoId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "destacada": {
+            "type": "boolean"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoPublicacion"
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudLogin": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudOrdenFotos": {
+        "required": [
+          "fotoIds",
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "fotoIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "SolicitudPagina": {
+        "required": [
+          "delEstudio",
+          "nombre",
+          "bio",
+          "instagram",
+          "whatsApp",
+          "sobre",
+          "ubicacion",
+          "horarios"
+        ],
+        "type": "object",
+        "properties": {
+          "delEstudio": {
+            "type": "boolean"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "bio": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instagram": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "whatsApp": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sobre": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "ubicacion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "horarios": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "SolicitudPublicacion": {
+        "required": [
+          "titulo",
+          "descripcion",
+          "fechaTrabajo",
+          "estiloId",
+          "zonaCuerpoId",
+          "tatuadorId",
+          "destacada"
+        ],
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fechaTrabajo": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date"
+          },
+          "estiloId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "zonaCuerpoId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          },
+          "destacada": {
+            "type": "boolean"
+          },
+          "tipo": {
+            "$ref": "#/components/schemas/TipoPublicacion"
+          }
+        }
+      },
+      "SolicitudVersion": {
+        "required": [
+          "version"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "string"
+          }
+        }
+      },
+      "Stream": {
+        "type": "string",
+        "format": "binary"
+      },
+      "TamanioFoto": {
+        "enum": [
+          "Miniatura",
+          "Galeria",
+          "Detalle"
+        ]
+      },
+      "TipoPublicacion": {
+        "enum": [
+          "Trabajo",
+          "Blog"
+        ]
+      },
+      "TokenAntiforgeryRespuesta": {
+        "required": [
+          "token",
+          "encabezado"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "encabezado": {
+            "type": "string"
+          }
+        }
+      },
+      "UsuarioActualRespuesta": {
+        "required": [
+          "id",
+          "email",
+          "nombre",
+          "estudioId",
+          "roles",
+          "tatuadorId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "email": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "estudioId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tatuadorId": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Antiforgery": {
+        "type": "apiKey",
+        "description": "Token de GET /api/auth/antiforgery. Pedilo de nuevo después de iniciar o cerrar sesión.",
+        "name": "X-XSRF-TOKEN",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "Antiforgery": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "AccionesFotos"
+    },
+    {
+      "name": "AccionesPublicacion"
+    },
+    {
+      "name": "Fotos"
+    },
+    {
+      "name": "Paginas"
+    },
+    {
+      "name": "Publicaciones"
+    },
+    {
+      "name": "Sitio"
+    },
+    {
+      "name": "Autenticacion"
+    }
+  ]
+}
