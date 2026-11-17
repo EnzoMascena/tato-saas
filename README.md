@@ -290,7 +290,7 @@ cd backend && dotnet test    # requiere Docker corriendo (Testcontainers)
 cd frontend && pnpm test
 ```
 
-Los tests de integración levantan un SQL Server 2025 en Docker. Para usar uno ya instalado, cargá su cadena de conexión en la variable `TATO_TESTS_SQLSERVER`: cada corrida crea una base nueva con nombre único y la borra al terminar, así nunca toca la de desarrollo.
+Los tests de integración levantan un solo SQL Server 2025 en Docker para toda la corrida. Para usar uno ya instalado, cargá su cadena de conexión en la variable `TATO_TESTS_SQLSERVER`. En los dos casos, cada clase de tests crea una base nueva con nombre único y la borra al terminar, así nunca toca la de desarrollo.
 
 ---
 
