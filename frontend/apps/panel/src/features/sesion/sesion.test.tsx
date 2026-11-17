@@ -1,6 +1,6 @@
 import { pedirApi } from '@tato/api-client'
-import { act, cleanup, screen } from '@testing-library/react'
-import { afterEach, describe, it, vi } from 'vitest'
+import { act, cleanup, fireEvent, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { json, renderizarPanel, simularApi } from '@/pruebas'
 
 const antiforgery = () => json({ token: 'token', encabezado: 'X-XSRF-TOKEN' })
@@ -46,5 +46,23 @@ describe('sesión y rutas', () => {
     )
 
     await screen.findByRole('heading', { name: 'Iniciar sesión' })
+  })
+
+  it('al cerrar sesión, vuelve al inicio de sesión y pide un token nuevo', async () => {
+    let haySesion = true
+    const api = simularApi({
+      'GET /api/auth/antiforgery': antiforgery,
+      'GET /api/auth/yo': () => (haySesion ? usuario() : sinSesion()),
+      'POST /api/auth/logout': () => {
+        haySesion = false
+        return new Response(null, { status: 204 })
+      },
+    })
+    renderizarPanel('/publicaciones')
+
+    fireEvent.click(await screen.findByRole('button', { name: 'Cerrar sesión' }))
+
+    await screen.findByRole('heading', { name: 'Iniciar sesión' })
+    expect(api.mock.calls.filter(([url]) => url === '/api/auth/antiforgery')).toHaveLength(2)
   })
 })
