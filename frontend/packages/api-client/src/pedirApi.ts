@@ -34,6 +34,11 @@ export class ErrorApi extends Error {
   }
 }
 
+/**
+ * Orval tipa con esto el error de cada hook: lo que llega es siempre un ErrorApi, no el ProblemDetails crudo.
+ */
+export type ErrorType<_ProblemDetails> = ErrorApi
+
 const modificanDatos = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
 
 /**
@@ -46,7 +51,13 @@ export async function pedirApi<T>(url: string, opciones: RequestInit = {}): Prom
   if (antiforgery && modificanDatos.has((opciones.method ?? 'GET').toUpperCase()))
     encabezados.set(antiforgery.encabezado, antiforgery.token)
 
-  const respuesta = await fetch(url, { ...opciones, headers: encabezados, credentials: 'same-origin' })
+  const respuesta = await fetch(url, { ...opciones, headers: encabezados, credentials: 'same-origin' }).catch(
+    (error: unknown) => {
+      // Si lo canceló TanStack Query, sigue como cancelación.
+      if (opciones.signal?.aborted) throw error
+      throw new ErrorApi(0, 'No hay conexión con el servidor. Probá de nuevo en un momento.')
+    },
+  )
 
   if (!respuesta.ok) throw await errorDe(respuesta)
 

@@ -67,6 +67,28 @@ describe('pedirApi', () => {
     })
   })
 
+  it('sin conexión, da un ErrorApi con status 0', async () => {
+    simularApi(() => {
+      throw new TypeError('Failed to fetch')
+    })
+
+    await expect(pedirApi('/api/publicaciones')).rejects.toMatchObject({
+      status: 0,
+      detail: 'No hay conexión con el servidor. Probá de nuevo en un momento.',
+    })
+  })
+
+  it('un pedido cancelado sigue como cancelación, no como ErrorApi', async () => {
+    const cancelacion = new DOMException('Cancelado', 'AbortError')
+    simularApi(() => {
+      throw cancelacion
+    })
+    const controlador = new AbortController()
+    controlador.abort()
+
+    await expect(pedirApi('/api/publicaciones', { signal: controlador.signal })).rejects.toBe(cancelacion)
+  })
+
   it('un 204 devuelve undefined', async () => {
     simularApi(() => new Response(null, { status: 204 }))
 

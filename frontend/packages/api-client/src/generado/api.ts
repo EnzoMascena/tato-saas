@@ -24,6 +24,7 @@ import type {
 } from '@tanstack/react-query';
 
 import { pedirApi } from '../pedirApi';
+import type { ErrorType } from '../pedirApi';
 export interface FotoConMedidas {
   id: string;
   ancho: number;
@@ -434,7 +435,7 @@ export const quitarFoto = async (id: string,
 
 export const getQuitarFotoMutationKey = () => ['quitarFoto'] as const;
 
-export const getQuitarFotoMutationOptions = <TError = unknown,
+export const getQuitarFotoMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof quitarFoto>>, TError,QuitarFotoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof quitarFoto>>, TError,QuitarFotoMutationVariables, TContext> => {
 
@@ -463,10 +464,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type QuitarFotoMutationResult = NonNullable<Awaited<ReturnType<typeof quitarFoto>>>
     export type QuitarFotoMutationBody = SolicitudVersion
-    export type QuitarFotoMutationError = unknown
+    export type QuitarFotoMutationError = ErrorType<unknown>
     export type QuitarFotoMutationVariables = {id: string;fotoId: string;data: SolicitudVersion}
 
-    export const useQuitarFoto = <TError = unknown,
+    export const useQuitarFoto = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof quitarFoto>>, TError,QuitarFotoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof quitarFoto>>,
@@ -503,7 +504,7 @@ export const reordenarFotos = async (id: string,
 
 export const getReordenarFotosMutationKey = () => ['reordenarFotos'] as const;
 
-export const getReordenarFotosMutationOptions = <TError = unknown,
+export const getReordenarFotosMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reordenarFotos>>, TError,ReordenarFotosMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof reordenarFotos>>, TError,ReordenarFotosMutationVariables, TContext> => {
 
@@ -532,10 +533,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ReordenarFotosMutationResult = NonNullable<Awaited<ReturnType<typeof reordenarFotos>>>
     export type ReordenarFotosMutationBody = SolicitudOrdenFotos
-    export type ReordenarFotosMutationError = unknown
+    export type ReordenarFotosMutationError = ErrorType<unknown>
     export type ReordenarFotosMutationVariables = {id: string;data: SolicitudOrdenFotos}
 
-    export const useReordenarFotos = <TError = unknown,
+    export const useReordenarFotos = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof reordenarFotos>>, TError,ReordenarFotosMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof reordenarFotos>>,
@@ -574,7 +575,7 @@ export const elegirPortada = async (id: string,
 
 export const getElegirPortadaMutationKey = () => ['elegirPortada'] as const;
 
-export const getElegirPortadaMutationOptions = <TError = unknown,
+export const getElegirPortadaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof elegirPortada>>, TError,ElegirPortadaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof elegirPortada>>, TError,ElegirPortadaMutationVariables, TContext> => {
 
@@ -603,10 +604,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ElegirPortadaMutationResult = NonNullable<Awaited<ReturnType<typeof elegirPortada>>>
     export type ElegirPortadaMutationBody = SolicitudVersion
-    export type ElegirPortadaMutationError = unknown
+    export type ElegirPortadaMutationError = ErrorType<unknown>
     export type ElegirPortadaMutationVariables = {id: string;fotoId: string;data: SolicitudVersion}
 
-    export const useElegirPortada = <TError = unknown,
+    export const useElegirPortada = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof elegirPortada>>, TError,ElegirPortadaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof elegirPortada>>,
@@ -643,7 +644,7 @@ export const confirmarConsentimiento = async (id: string,
 
 export const getConfirmarConsentimientoMutationKey = () => ['confirmarConsentimiento'] as const;
 
-export const getConfirmarConsentimientoMutationOptions = <TError = unknown,
+export const getConfirmarConsentimientoMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof confirmarConsentimiento>>, TError,ConfirmarConsentimientoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof confirmarConsentimiento>>, TError,ConfirmarConsentimientoMutationVariables, TContext> => {
 
@@ -672,10 +673,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type ConfirmarConsentimientoMutationResult = NonNullable<Awaited<ReturnType<typeof confirmarConsentimiento>>>
     export type ConfirmarConsentimientoMutationBody = SolicitudVersion
-    export type ConfirmarConsentimientoMutationError = unknown
+    export type ConfirmarConsentimientoMutationError = ErrorType<unknown>
     export type ConfirmarConsentimientoMutationVariables = {id: string;data: SolicitudVersion}
 
-    export const useConfirmarConsentimiento = <TError = unknown,
+    export const useConfirmarConsentimiento = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof confirmarConsentimiento>>, TError,ConfirmarConsentimientoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof confirmarConsentimiento>>,
@@ -712,7 +713,7 @@ export const publicarPublicacion = async (id: string,
 
 export const getPublicarPublicacionMutationKey = () => ['publicarPublicacion'] as const;
 
-export const getPublicarPublicacionMutationOptions = <TError = unknown,
+export const getPublicarPublicacionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof publicarPublicacion>>, TError,PublicarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof publicarPublicacion>>, TError,PublicarPublicacionMutationVariables, TContext> => {
 
@@ -741,10 +742,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PublicarPublicacionMutationResult = NonNullable<Awaited<ReturnType<typeof publicarPublicacion>>>
     export type PublicarPublicacionMutationBody = SolicitudVersion
-    export type PublicarPublicacionMutationError = unknown
+    export type PublicarPublicacionMutationError = ErrorType<unknown>
     export type PublicarPublicacionMutationVariables = {id: string;data: SolicitudVersion}
 
-    export const usePublicarPublicacion = <TError = unknown,
+    export const usePublicarPublicacion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof publicarPublicacion>>, TError,PublicarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof publicarPublicacion>>,
@@ -781,7 +782,7 @@ export const ocultarPublicacion = async (id: string,
 
 export const getOcultarPublicacionMutationKey = () => ['ocultarPublicacion'] as const;
 
-export const getOcultarPublicacionMutationOptions = <TError = unknown,
+export const getOcultarPublicacionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ocultarPublicacion>>, TError,OcultarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof ocultarPublicacion>>, TError,OcultarPublicacionMutationVariables, TContext> => {
 
@@ -810,10 +811,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type OcultarPublicacionMutationResult = NonNullable<Awaited<ReturnType<typeof ocultarPublicacion>>>
     export type OcultarPublicacionMutationBody = SolicitudVersion
-    export type OcultarPublicacionMutationError = unknown
+    export type OcultarPublicacionMutationError = ErrorType<unknown>
     export type OcultarPublicacionMutationVariables = {id: string;data: SolicitudVersion}
 
-    export const useOcultarPublicacion = <TError = unknown,
+    export const useOcultarPublicacion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ocultarPublicacion>>, TError,OcultarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof ocultarPublicacion>>,
@@ -858,7 +859,7 @@ if(subirFotoBody.version !== undefined) {
 
 export const getSubirFotoMutationKey = () => ['subirFoto'] as const;
 
-export const getSubirFotoMutationOptions = <TError = unknown,
+export const getSubirFotoMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subirFoto>>, TError,SubirFotoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof subirFoto>>, TError,SubirFotoMutationVariables, TContext> => {
 
@@ -887,10 +888,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SubirFotoMutationResult = NonNullable<Awaited<ReturnType<typeof subirFoto>>>
     export type SubirFotoMutationBody = SubirFotoBody
-    export type SubirFotoMutationError = unknown
+    export type SubirFotoMutationError = ErrorType<unknown>
     export type SubirFotoMutationVariables = {id: string;data: SubirFotoBody}
 
-    export const useSubirFoto = <TError = unknown,
+    export const useSubirFoto = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subirFoto>>, TError,SubirFotoMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof subirFoto>>,
@@ -934,7 +935,7 @@ export const getLeerFotoQueryKey = (fotoId: string,
     }
 
 
-export const getLeerFotoQueryOptions = <TData = Awaited<ReturnType<typeof leerFoto>>, TError = ProblemDetails>(fotoId: string,
+export const getLeerFotoQueryOptions = <TData = Awaited<ReturnType<typeof leerFoto>>, TError = ErrorType<ProblemDetails>>(fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFoto>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
@@ -954,10 +955,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type LeerFotoQueryResult = NonNullable<Awaited<ReturnType<typeof leerFoto>>>
-export type LeerFotoQueryError = ProblemDetails
+export type LeerFotoQueryError = ErrorType<ProblemDetails>
 
 
-export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ProblemDetails>(
+export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFoto>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -968,7 +969,7 @@ export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ProblemDetails>(
+export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFoto>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -979,12 +980,12 @@ export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ProblemDetails>(
+export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFoto>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ProblemDetails>(
+export function useLeerFoto<TData = Awaited<ReturnType<typeof leerFoto>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFoto>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
@@ -1033,7 +1034,7 @@ export const getListarPaginasQueryKey = () => {
     }
 
 
-export const getListarPaginasQueryOptions = <TData = Awaited<ReturnType<typeof listarPaginas>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getListarPaginasQueryOptions = <TData = Awaited<ReturnType<typeof listarPaginas>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1052,10 +1053,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListarPaginasQueryResult = NonNullable<Awaited<ReturnType<typeof listarPaginas>>>
-export type ListarPaginasQueryError = unknown
+export type ListarPaginasQueryError = ErrorType<unknown>
 
 
-export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = unknown>(
+export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = ErrorType<unknown>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPaginas>>,
@@ -1065,7 +1066,7 @@ export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = unknown>(
+export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPaginas>>,
@@ -1075,11 +1076,11 @@ export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = unknown>(
+export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = unknown>(
+export function useListarPaginas<TData = Awaited<ReturnType<typeof listarPaginas>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPaginas>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1122,7 +1123,7 @@ export const crearPagina = async (solicitudPagina: SolicitudPagina, options?: Pa
 
 export const getCrearPaginaMutationKey = () => ['crearPagina'] as const;
 
-export const getCrearPaginaMutationOptions = <TError = unknown,
+export const getCrearPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof crearPagina>>, TError,CrearPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof crearPagina>>, TError,CrearPaginaMutationVariables, TContext> => {
 
@@ -1151,10 +1152,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CrearPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof crearPagina>>>
     export type CrearPaginaMutationBody = SolicitudPagina
-    export type CrearPaginaMutationError = unknown
+    export type CrearPaginaMutationError = ErrorType<unknown>
     export type CrearPaginaMutationVariables = {data: SolicitudPagina}
 
-    export const useCrearPagina = <TError = unknown,
+    export const useCrearPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof crearPagina>>, TError,CrearPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof crearPagina>>,
@@ -1195,7 +1196,7 @@ export const getObtenerPaginaQueryKey = (id: string,) => {
     }
 
 
-export const getObtenerPaginaQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ProblemDetails>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getObtenerPaginaQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ErrorType<ProblemDetails>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1214,10 +1215,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerPaginaQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerPagina>>>
-export type ObtenerPaginaQueryError = ProblemDetails
+export type ObtenerPaginaQueryError = ErrorType<ProblemDetails>
 
 
-export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ProblemDetails>(
+export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ErrorType<ProblemDetails>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPagina>>,
@@ -1227,7 +1228,7 @@ export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ProblemDetails>(
+export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPagina>>,
@@ -1237,11 +1238,11 @@ export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ProblemDetails>(
+export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ProblemDetails>(
+export function useObtenerPagina<TData = Awaited<ReturnType<typeof obtenerPagina>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPagina>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1285,7 +1286,7 @@ export const editarPagina = async (id: string,
 
 export const getEditarPaginaMutationKey = () => ['editarPagina'] as const;
 
-export const getEditarPaginaMutationOptions = <TError = unknown,
+export const getEditarPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof editarPagina>>, TError,EditarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof editarPagina>>, TError,EditarPaginaMutationVariables, TContext> => {
 
@@ -1314,10 +1315,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type EditarPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof editarPagina>>>
     export type EditarPaginaMutationBody = SolicitudEditarPagina
-    export type EditarPaginaMutationError = unknown
+    export type EditarPaginaMutationError = ErrorType<unknown>
     export type EditarPaginaMutationVariables = {id: string;data: SolicitudEditarPagina}
 
-    export const useEditarPagina = <TError = unknown,
+    export const useEditarPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof editarPagina>>, TError,EditarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof editarPagina>>,
@@ -1354,7 +1355,7 @@ export const cambiarDireccion = async (id: string,
 
 export const getCambiarDireccionMutationKey = () => ['cambiarDireccion'] as const;
 
-export const getCambiarDireccionMutationOptions = <TError = unknown,
+export const getCambiarDireccionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cambiarDireccion>>, TError,CambiarDireccionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof cambiarDireccion>>, TError,CambiarDireccionMutationVariables, TContext> => {
 
@@ -1383,10 +1384,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CambiarDireccionMutationResult = NonNullable<Awaited<ReturnType<typeof cambiarDireccion>>>
     export type CambiarDireccionMutationBody = SolicitudDireccion
-    export type CambiarDireccionMutationError = unknown
+    export type CambiarDireccionMutationError = ErrorType<unknown>
     export type CambiarDireccionMutationVariables = {id: string;data: SolicitudDireccion}
 
-    export const useCambiarDireccion = <TError = unknown,
+    export const useCambiarDireccion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cambiarDireccion>>, TError,CambiarDireccionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof cambiarDireccion>>,
@@ -1423,7 +1424,7 @@ export const mostrarPagina = async (id: string,
 
 export const getMostrarPaginaMutationKey = () => ['mostrarPagina'] as const;
 
-export const getMostrarPaginaMutationOptions = <TError = unknown,
+export const getMostrarPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof mostrarPagina>>, TError,MostrarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof mostrarPagina>>, TError,MostrarPaginaMutationVariables, TContext> => {
 
@@ -1452,10 +1453,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type MostrarPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof mostrarPagina>>>
     export type MostrarPaginaMutationBody = SolicitudVersion
-    export type MostrarPaginaMutationError = unknown
+    export type MostrarPaginaMutationError = ErrorType<unknown>
     export type MostrarPaginaMutationVariables = {id: string;data: SolicitudVersion}
 
-    export const useMostrarPagina = <TError = unknown,
+    export const useMostrarPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof mostrarPagina>>, TError,MostrarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof mostrarPagina>>,
@@ -1492,7 +1493,7 @@ export const ocultarPagina = async (id: string,
 
 export const getOcultarPaginaMutationKey = () => ['ocultarPagina'] as const;
 
-export const getOcultarPaginaMutationOptions = <TError = unknown,
+export const getOcultarPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ocultarPagina>>, TError,OcultarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof ocultarPagina>>, TError,OcultarPaginaMutationVariables, TContext> => {
 
@@ -1521,10 +1522,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type OcultarPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof ocultarPagina>>>
     export type OcultarPaginaMutationBody = SolicitudVersion
-    export type OcultarPaginaMutationError = unknown
+    export type OcultarPaginaMutationError = ErrorType<unknown>
     export type OcultarPaginaMutationVariables = {id: string;data: SolicitudVersion}
 
-    export const useOcultarPagina = <TError = unknown,
+    export const useOcultarPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof ocultarPagina>>, TError,OcultarPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof ocultarPagina>>,
@@ -1571,7 +1572,7 @@ if(subirFotoPaginaBody.version !== undefined) {
 
 export const getSubirFotoPaginaMutationKey = () => ['subirFotoPagina'] as const;
 
-export const getSubirFotoPaginaMutationOptions = <TError = unknown,
+export const getSubirFotoPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subirFotoPagina>>, TError,SubirFotoPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof subirFotoPagina>>, TError,SubirFotoPaginaMutationVariables, TContext> => {
 
@@ -1600,10 +1601,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type SubirFotoPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof subirFotoPagina>>>
     export type SubirFotoPaginaMutationBody = SubirFotoPaginaBody
-    export type SubirFotoPaginaMutationError = unknown
+    export type SubirFotoPaginaMutationError = ErrorType<unknown>
     export type SubirFotoPaginaMutationVariables = {id: string;lugar: LugarFotoPagina;data: SubirFotoPaginaBody}
 
-    export const useSubirFotoPagina = <TError = unknown,
+    export const useSubirFotoPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof subirFotoPagina>>, TError,SubirFotoPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof subirFotoPagina>>,
@@ -1642,7 +1643,7 @@ export const quitarFotoPagina = async (id: string,
 
 export const getQuitarFotoPaginaMutationKey = () => ['quitarFotoPagina'] as const;
 
-export const getQuitarFotoPaginaMutationOptions = <TError = unknown,
+export const getQuitarFotoPaginaMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof quitarFotoPagina>>, TError,QuitarFotoPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof quitarFotoPagina>>, TError,QuitarFotoPaginaMutationVariables, TContext> => {
 
@@ -1671,10 +1672,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type QuitarFotoPaginaMutationResult = NonNullable<Awaited<ReturnType<typeof quitarFotoPagina>>>
     export type QuitarFotoPaginaMutationBody = SolicitudVersion
-    export type QuitarFotoPaginaMutationError = unknown
+    export type QuitarFotoPaginaMutationError = ErrorType<unknown>
     export type QuitarFotoPaginaMutationVariables = {id: string;lugar: LugarFotoPagina;data: SolicitudVersion}
 
-    export const useQuitarFotoPagina = <TError = unknown,
+    export const useQuitarFotoPagina = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof quitarFotoPagina>>, TError,QuitarFotoPaginaMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof quitarFotoPagina>>,
@@ -1722,7 +1723,7 @@ export const getListarPublicacionesQueryKey = (params?: ListarPublicacionesParam
     }
 
 
-export const getListarPublicacionesQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = unknown>(params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getListarPublicacionesQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1741,10 +1742,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListarPublicacionesQueryResult = NonNullable<Awaited<ReturnType<typeof listarPublicaciones>>>
-export type ListarPublicacionesQueryError = unknown
+export type ListarPublicacionesQueryError = ErrorType<unknown>
 
 
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = unknown>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
  params: undefined |  ListarPublicacionesParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPublicaciones>>,
@@ -1754,7 +1755,7 @@ export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = unknown>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof listarPublicaciones>>,
@@ -1764,11 +1765,11 @@ export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = unknown>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = unknown>(
+export function useListarPublicaciones<TData = Awaited<ReturnType<typeof listarPublicaciones>>, TError = ErrorType<unknown>>(
  params?: ListarPublicacionesParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicaciones>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1811,7 +1812,7 @@ export const crearPublicacion = async (solicitudPublicacion: SolicitudPublicacio
 
 export const getCrearPublicacionMutationKey = () => ['crearPublicacion'] as const;
 
-export const getCrearPublicacionMutationOptions = <TError = unknown,
+export const getCrearPublicacionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof crearPublicacion>>, TError,CrearPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof crearPublicacion>>, TError,CrearPublicacionMutationVariables, TContext> => {
 
@@ -1840,10 +1841,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CrearPublicacionMutationResult = NonNullable<Awaited<ReturnType<typeof crearPublicacion>>>
     export type CrearPublicacionMutationBody = SolicitudPublicacion
-    export type CrearPublicacionMutationError = unknown
+    export type CrearPublicacionMutationError = ErrorType<unknown>
     export type CrearPublicacionMutationVariables = {data: SolicitudPublicacion}
 
-    export const useCrearPublicacion = <TError = unknown,
+    export const useCrearPublicacion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof crearPublicacion>>, TError,CrearPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof crearPublicacion>>,
@@ -1884,7 +1885,7 @@ export const getObtenerPublicacionQueryKey = (id: string,) => {
     }
 
 
-export const getObtenerPublicacionQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ProblemDetails>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getObtenerPublicacionQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ErrorType<ProblemDetails>>(id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -1903,10 +1904,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerPublicacionQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerPublicacion>>>
-export type ObtenerPublicacionQueryError = ProblemDetails
+export type ObtenerPublicacionQueryError = ErrorType<ProblemDetails>
 
 
-export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ProblemDetails>(
+export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ErrorType<ProblemDetails>>(
  id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPublicacion>>,
@@ -1916,7 +1917,7 @@ export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ProblemDetails>(
+export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPublicacion>>,
@@ -1926,11 +1927,11 @@ export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerP
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ProblemDetails>(
+export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ProblemDetails>(
+export function useObtenerPublicacion<TData = Awaited<ReturnType<typeof obtenerPublicacion>>, TError = ErrorType<ProblemDetails>>(
  id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacion>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -1974,7 +1975,7 @@ export const editarPublicacion = async (id: string,
 
 export const getEditarPublicacionMutationKey = () => ['editarPublicacion'] as const;
 
-export const getEditarPublicacionMutationOptions = <TError = unknown,
+export const getEditarPublicacionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof editarPublicacion>>, TError,EditarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof editarPublicacion>>, TError,EditarPublicacionMutationVariables, TContext> => {
 
@@ -2003,10 +2004,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type EditarPublicacionMutationResult = NonNullable<Awaited<ReturnType<typeof editarPublicacion>>>
     export type EditarPublicacionMutationBody = SolicitudEditarPublicacion
-    export type EditarPublicacionMutationError = unknown
+    export type EditarPublicacionMutationError = ErrorType<unknown>
     export type EditarPublicacionMutationVariables = {id: string;data: SolicitudEditarPublicacion}
 
-    export const useEditarPublicacion = <TError = unknown,
+    export const useEditarPublicacion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof editarPublicacion>>, TError,EditarPublicacionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof editarPublicacion>>,
@@ -2047,7 +2048,7 @@ export const getObtenerPaginaDelSitioQueryKey = (direccion: string,) => {
     }
 
 
-export const getObtenerPaginaDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ProblemDetails>(direccion: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getObtenerPaginaDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ErrorType<ProblemDetails>>(direccion: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2066,10 +2067,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerPaginaDelSitioQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>>
-export type ObtenerPaginaDelSitioQueryError = ProblemDetails
+export type ObtenerPaginaDelSitioQueryError = ErrorType<ProblemDetails>
 
 
-export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPaginaDelSitio>>,
@@ -2079,7 +2080,7 @@ export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obten
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerPaginaDelSitio>>,
@@ -2089,11 +2090,11 @@ export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obten
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPaginaDelSitio<TData = Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPaginaDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -2151,7 +2152,7 @@ export const getListarPublicacionesDelSitioQueryKey = (direccion: string,
     }
 
 
-export const getListarPublicacionesDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ProblemDetails>(direccion: string,
+export const getListarPublicacionesDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ErrorType<ProblemDetails>>(direccion: string,
     params?: ListarPublicacionesDelSitioParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
@@ -2171,10 +2172,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ListarPublicacionesDelSitioQueryResult = NonNullable<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>>
-export type ListarPublicacionesDelSitioQueryError = ProblemDetails
+export type ListarPublicacionesDelSitioQueryError = ErrorType<ProblemDetails>
 
 
-export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ProblemDetails>(
+export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     params: undefined |  ListarPublicacionesDelSitioParams, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2185,7 +2186,7 @@ export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ProblemDetails>(
+export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     params?: ListarPublicacionesDelSitioParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2196,12 +2197,12 @@ export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ProblemDetails>(
+export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     params?: ListarPublicacionesDelSitioParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ProblemDetails>(
+export function useListarPublicacionesDelSitio<TData = Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     params?: ListarPublicacionesDelSitioParams, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof listarPublicacionesDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
@@ -2253,7 +2254,7 @@ export const getObtenerPublicacionDelSitioQueryKey = (direccion: string,
     }
 
 
-export const getObtenerPublicacionDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ProblemDetails>(direccion: string,
+export const getObtenerPublicacionDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ErrorType<ProblemDetails>>(direccion: string,
     id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
@@ -2273,10 +2274,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerPublicacionDelSitioQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>>
-export type ObtenerPublicacionDelSitioQueryError = ProblemDetails
+export type ObtenerPublicacionDelSitioQueryError = ErrorType<ProblemDetails>
 
 
-export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     id: string, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2287,7 +2288,7 @@ export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2298,12 +2299,12 @@ export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof 
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ProblemDetails>(
+export function useObtenerPublicacionDelSitio<TData = Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError = ErrorType<ProblemDetails>>(
  direccion: string,
     id: string, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerPublicacionDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
@@ -2355,7 +2356,7 @@ export const getLeerFotoDelSitioQueryKey = (fotoId: string,
     }
 
 
-export const getLeerFotoDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ProblemDetails>(fotoId: string,
+export const getLeerFotoDelSitioQueryOptions = <TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ErrorType<ProblemDetails>>(fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFotoDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
@@ -2375,10 +2376,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type LeerFotoDelSitioQueryResult = NonNullable<Awaited<ReturnType<typeof leerFotoDelSitio>>>
-export type LeerFotoDelSitioQueryError = ProblemDetails
+export type LeerFotoDelSitioQueryError = ErrorType<ProblemDetails>
 
 
-export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ProblemDetails>(
+export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFotoDelSitio>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
@@ -2389,7 +2390,7 @@ export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDe
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ProblemDetails>(
+export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFotoDelSitio>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
@@ -2400,12 +2401,12 @@ export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDe
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ProblemDetails>(
+export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFotoDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ProblemDetails>(
+export function useLeerFotoDelSitio<TData = Awaited<ReturnType<typeof leerFotoDelSitio>>, TError = ErrorType<ProblemDetails>>(
  fotoId: string,
     tamanio: TamanioFoto, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof leerFotoDelSitio>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
@@ -2454,7 +2455,7 @@ export const getObtenerAntiforgeryQueryKey = () => {
     }
 
 
-export const getObtenerAntiforgeryQueryOptions = <TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getObtenerAntiforgeryQueryOptions = <TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2473,10 +2474,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerAntiforgeryQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerAntiforgery>>>
-export type ObtenerAntiforgeryQueryError = unknown
+export type ObtenerAntiforgeryQueryError = ErrorType<unknown>
 
 
-export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = unknown>(
+export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = ErrorType<unknown>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerAntiforgery>>,
@@ -2486,7 +2487,7 @@ export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerA
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = unknown>(
+export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerAntiforgery>>,
@@ -2496,11 +2497,11 @@ export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerA
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = unknown>(
+export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = unknown>(
+export function useObtenerAntiforgery<TData = Awaited<ReturnType<typeof obtenerAntiforgery>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerAntiforgery>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
@@ -2543,7 +2544,7 @@ export const iniciarSesion = async (solicitudLogin: SolicitudLogin, options?: Pa
 
 export const getIniciarSesionMutationKey = () => ['iniciarSesion'] as const;
 
-export const getIniciarSesionMutationOptions = <TError = ProblemDetails,
+export const getIniciarSesionMutationOptions = <TError = ErrorType<ProblemDetails>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof iniciarSesion>>, TError,IniciarSesionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof iniciarSesion>>, TError,IniciarSesionMutationVariables, TContext> => {
 
@@ -2572,10 +2573,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type IniciarSesionMutationResult = NonNullable<Awaited<ReturnType<typeof iniciarSesion>>>
     export type IniciarSesionMutationBody = SolicitudLogin
-    export type IniciarSesionMutationError = ProblemDetails
+    export type IniciarSesionMutationError = ErrorType<ProblemDetails>
     export type IniciarSesionMutationVariables = {data: SolicitudLogin}
 
-    export const useIniciarSesion = <TError = ProblemDetails,
+    export const useIniciarSesion = <TError = ErrorType<ProblemDetails>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof iniciarSesion>>, TError,IniciarSesionMutationVariables, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof iniciarSesion>>,
@@ -2611,7 +2612,7 @@ export const cerrarSesion = async ( options?: Parameters<typeof pedirApi>[1]): P
 
 export const getCerrarSesionMutationKey = () => ['cerrarSesion'] as const;
 
-export const getCerrarSesionMutationOptions = <TError = unknown,
+export const getCerrarSesionMutationOptions = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cerrarSesion>>, TError,void, TContext>, request?: SecondParameter<typeof pedirApi>}
 ): UseMutationOptions<Awaited<ReturnType<typeof cerrarSesion>>, TError,void, TContext> => {
 
@@ -2640,10 +2641,10 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type CerrarSesionMutationResult = NonNullable<Awaited<ReturnType<typeof cerrarSesion>>>
 
-    export type CerrarSesionMutationError = unknown
+    export type CerrarSesionMutationError = ErrorType<unknown>
 
 
-    export const useCerrarSesion = <TError = unknown,
+    export const useCerrarSesion = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof cerrarSesion>>, TError,void, TContext>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof cerrarSesion>>,
@@ -2684,7 +2685,7 @@ export const getObtenerUsuarioActualQueryKey = () => {
     }
 
 
-export const getObtenerUsuarioActualQueryOptions = <TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = unknown>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
+export const getObtenerUsuarioActualQueryOptions = <TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = ErrorType<unknown>>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
 ) => {
 
 const {query: queryOptions, request: requestOptions} = options ?? {};
@@ -2703,10 +2704,10 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 }
 
 export type ObtenerUsuarioActualQueryResult = NonNullable<Awaited<ReturnType<typeof obtenerUsuarioActual>>>
-export type ObtenerUsuarioActualQueryError = unknown
+export type ObtenerUsuarioActualQueryError = ErrorType<unknown>
 
 
-export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = unknown>(
+export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = ErrorType<unknown>>(
   options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>> & Pick<
         DefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerUsuarioActual>>,
@@ -2716,7 +2717,7 @@ export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtene
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = unknown>(
+export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>> & Pick<
         UndefinedInitialDataOptions<
           Awaited<ReturnType<typeof obtenerUsuarioActual>>,
@@ -2726,11 +2727,11 @@ export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtene
       >, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = unknown>(
+export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
   ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = unknown>(
+export function useObtenerUsuarioActual<TData = Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError = ErrorType<unknown>>(
   options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof obtenerUsuarioActual>>, TError, TData>>, request?: SecondParameter<typeof pedirApi>}
  , queryClient?: QueryClient
  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
