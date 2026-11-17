@@ -1,3 +1,6 @@
 packages:
   - 'apps/*'
   - 'packages/*'
+# El script de instalación de esbuild (llega con Orval) no hace falta: el binario viene en un paquete aparte.
+allowBuilds:
+  esbuild: false

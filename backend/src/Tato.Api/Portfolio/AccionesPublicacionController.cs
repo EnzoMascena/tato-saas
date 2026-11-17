@@ -18,6 +18,7 @@ public sealed class AccionesPublicacionController : ControllerBase
     }
 
     [HttpPost("consentimiento")]
+    [EndpointName("confirmarConsentimiento")]
     public async Task<PublicacionVersionRespuesta> ConfirmarConsentimiento(
         Guid id,
         SolicitudVersion solicitud,
@@ -25,6 +26,7 @@ public sealed class AccionesPublicacionController : ControllerBase
         new(await _acciones.ConfirmarConsentimientoAsync(id, solicitud.Version, cancellationToken));
 
     [HttpPost("publicar")]
+    [EndpointName("publicarPublicacion")]
     public async Task<PublicacionVersionRespuesta> Publicar(
         Guid id,
         SolicitudVersion solicitud,
@@ -32,6 +34,7 @@ public sealed class AccionesPublicacionController : ControllerBase
         new(await _acciones.PublicarAsync(id, solicitud.Version, cancellationToken));
 
     [HttpPost("ocultar")]
+    [EndpointName("ocultarPublicacion")]
     public async Task<PublicacionVersionRespuesta> Ocultar(
         Guid id,
         SolicitudVersion solicitud,

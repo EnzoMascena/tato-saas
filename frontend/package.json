@@ -5,7 +5,10 @@
   "scripts": {
     "dev:sitio": "pnpm --filter @tato/sitio dev",
     "dev:panel": "pnpm --filter @tato/panel dev",
+    "api:descargar": "pnpm --filter @tato/api-client api:descargar",
+    "api:generate": "pnpm --filter @tato/api-client api:generate",
     "build": "pnpm -r build",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test"
   }
 }

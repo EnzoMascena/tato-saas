@@ -16,6 +16,7 @@ public sealed class PaginasController : ControllerBase
     /// Las páginas que gestiona la persona de la sesión: primero la suya de artista y, si es Dueño, la del estudio.
     /// </summary>
     [HttpGet]
+    [EndpointName("listarPaginas")]
     public Task<IReadOnlyList<PaginaDetalle>> Listar(
         [FromServices] MisPaginas misPaginas,
         CancellationToken cancellationToken) =>
@@ -25,6 +26,7 @@ public sealed class PaginasController : ControllerBase
     /// Una página del estudio. 404 si no existe o es de otro estudio.
     /// </summary>
     [HttpGet("{id:guid}")]
+    [EndpointName("obtenerPagina")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound, "application/problem+json")]
     public async Task<ActionResult<PaginaDetalle>> Obtener(
@@ -41,6 +43,7 @@ public sealed class PaginasController : ControllerBase
     /// Crea la página del estudio (delEstudio: true) o la propia de artista. Nace oculta.
     /// </summary>
     [HttpPost]
+    [EndpointName("crearPagina")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<PaginaCreadaRespuesta>> Crear(
         SolicitudPagina solicitud,
@@ -56,6 +59,7 @@ public sealed class PaginasController : ControllerBase
     /// Reemplaza los datos. La dirección no cambia, aunque cambie el nombre (RN-BLG-07).
     /// </summary>
     [HttpPut("{id:guid}")]
+    [EndpointName("editarPagina")]
     public async Task<PaginaVersionRespuesta> Editar(
         Guid id,
         SolicitudEditarPagina solicitud,
@@ -67,6 +71,7 @@ public sealed class PaginasController : ControllerBase
     /// Cambia la dirección a propósito. 422 si otra página ya la usa (RN-BLG-07).
     /// </summary>
     [HttpPut("{id:guid}/direccion")]
+    [EndpointName("cambiarDireccion")]
     public async Task<PaginaVersionRespuesta> CambiarDireccion(
         Guid id,
         SolicitudDireccion solicitud,
@@ -75,6 +80,7 @@ public sealed class PaginasController : ControllerBase
         new(await acciones.CambiarDireccionAsync(id, solicitud.Direccion, solicitud.Version, cancellationToken));
 
     [HttpPost("{id:guid}/mostrar")]
+    [EndpointName("mostrarPagina")]
     public async Task<PaginaVersionRespuesta> Mostrar(
         Guid id,
         SolicitudVersion solicitud,
@@ -83,6 +89,7 @@ public sealed class PaginasController : ControllerBase
         new(await acciones.MostrarAsync(id, solicitud.Version, cancellationToken));
 
     [HttpPost("{id:guid}/ocultar")]
+    [EndpointName("ocultarPagina")]
     public async Task<PaginaVersionRespuesta> Ocultar(
         Guid id,
         SolicitudVersion solicitud,
@@ -98,6 +105,7 @@ public sealed class PaginasController : ControllerBase
     /// <param name="archivo">La foto, tal como la saca el celular.</param>
     /// <param name="version">La versión que tenía el panel.</param>
     [HttpPost("{id:guid}/fotos/{lugar}")]
+    [EndpointName("subirFotoPagina")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     public async Task<ActionResult<FotoPaginaSubida>> SubirFoto(
         Guid id,
@@ -122,6 +130,7 @@ public sealed class PaginasController : ControllerBase
     /// en el cuerpo, como las demás acciones.
     /// </summary>
     [HttpPost("{id:guid}/fotos/{lugar}/quitar")]
+    [EndpointName("quitarFotoPagina")]
     public async Task<PaginaVersionRespuesta> QuitarFoto(
         Guid id,
         LugarFotoPagina lugar,
