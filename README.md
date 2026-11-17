@@ -357,6 +357,7 @@ Propuesta por defecto (P-18, ver `docs/`): un servidor virtual con SQL Server Ex
 | 05 · Decisiones, glosario y pendientes | Por qué se decidió cada cosa y temas abiertos | [docs/](docs/05_Decisiones_Glosario_y_Pendientes.md) |
 | 06 · Stack y arquitectura | Tecnologías, arquitectura, seguridad, escalabilidad y patrones | Proyecto (PDF) |
 | 07 · Blog y portfolio público | Alcance, pantallas y reglas de la primera entrega | [docs/](docs/07_Blog_y_Portfolio_Publico.md) |
+| Wireframe del sitio | Las pantallas del sitio público, para revisar con los artistas del estudio piloto | [docs/wireframes/sitio/](docs/wireframes/sitio/README.md) |
 
 Los documentos pasan a Markdown, dentro de `docs/`, a medida que se actualizan: así quedan versionados junto al código. Los que todavía no se pasaron siguen como PDF en el proyecto.
 
