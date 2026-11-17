@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { execFileSync } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync } from 'node:fs'
 import { homedir } from 'node:os'
@@ -13,6 +14,7 @@ export default defineConfig(({ command, mode }) => ({
   resolve: { tsconfigPaths: true },
   // Solo para pnpm dev: el build y los tests no necesitan el certificado.
   server: command === 'serve' && mode !== 'test' ? servidorDeDesarrollo() : undefined,
+  test: { environment: 'jsdom' },
 }))
 
 /**
