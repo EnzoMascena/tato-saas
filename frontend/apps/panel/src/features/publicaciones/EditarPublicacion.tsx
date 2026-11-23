@@ -1,10 +1,11 @@
 import { crearPublicacion, editarPublicacion, TipoPublicacion, type PublicacionDetalle } from '@tato/api-client'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router'
 import { useSesion } from '@/features/sesion/sesion'
 import { elegido } from '@/lib/elegido'
 import { AccionesPublicacion } from './AccionesPublicacion'
 import { AvisoDeError } from './AvisoDeError'
+import { AvisoDeSalida } from './AvisoDeSalida'
 import { FormularioPublicacion, type ValoresPublicacion } from './FormularioPublicacion'
 import { FotosPublicacion } from './FotosPublicacion'
 import { Opciones } from './Opciones'
@@ -59,7 +60,9 @@ function Creacion() {
   const tipo = elegido(busqueda.get('tipo'), Object.values(TipoPublicacion)) ?? TipoPublicacion.Trabajo
   const tatuadorDelUsuario = usuario?.tatuadorId ?? null
   const [enElEstudio, setEnElEstudio] = useState(!tatuadorDelUsuario || busqueda.get('de') === 'estudio')
-  const [, setSucio] = useState(false)
+  const [sucio, setSucio] = useState(false)
+  // Al crear, la pantalla se va a propósito a la de edición: no tiene que frenarse a sí misma.
+  const salidaLibre = useRef(false)
 
   async function crear(valores: ValoresPublicacion) {
     const creada = await intentar(() =>
@@ -77,6 +80,7 @@ function Creacion() {
 
     if (!creada) return false
 
+    salidaLibre.current = true
     void navigate(`/publicaciones/${creada.id}`, { replace: true })
     return true
   }
@@ -98,6 +102,11 @@ function Creacion() {
         />
       )}
 
+      <AvisoDeSalida
+        hayCambios={sucio}
+        mensaje="Tenés cambios sin guardar. Si salís, se pierden."
+        salidaLibre={salidaLibre}
+      />
       {aviso && <AvisoDeError aviso={aviso} recargar={() => undefined} />}
 
       <FormularioPublicacion
@@ -197,6 +206,14 @@ function Edicion({
         {pagina} · {detalle.estado}
       </p>
 
+      <AvisoDeSalida
+        hayCambios={sucio || trabajando > 0}
+        mensaje={
+          trabajando > 0
+            ? 'Todavía se están guardando cambios o subiendo fotos. Si salís ahora, se cortan.'
+            : 'Tenés cambios sin guardar. Si salís, se pierden.'
+        }
+      />
       {aviso && <AvisoDeError aviso={aviso} recargar={() => void recargarTodo()} />}
 
       <FormularioPublicacion
