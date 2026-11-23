@@ -4,7 +4,7 @@ Requerimientos de la primera entrega: las páginas públicas del estudio y de su
 
 | Versión | Fecha | Estado | Relacionados |
 | --- | --- | --- | --- |
-| 2.5 | 17 de noviembre de 2026 | Aprobado para la versión 1 | Docs 01, 04, 05 y 06 |
+| 2.6 | 23 de noviembre de 2026 | Aprobado para la versión 1 | Docs 01, 04, 05 y 06 |
 
 > **Prioridad (D-46):** el blog es la primera entrega y tiene que estar online antes del **17 de noviembre de 2026**, cuando la tatuadora del estudio piloto viaja a tatuar a Bolivia. El MVP de gestión sigue después.
 
@@ -28,6 +28,7 @@ Requerimientos de la primera entrega: las páginas públicas del estudio y de su
 | D-55 | En la versión 1, los estudios y los usuarios los da de alta el desarrollador por consola. Cierra P-19. | Para un solo estudio piloto no hace falta registro. Aplicada en el corte 1. |
 | D-56 | Dos aplicaciones de front, el sitio y el panel, en el mismo repositorio. Cierra P-28. | El sitio queda liviano y sin login; el panel crece hasta ser la app del MVP. Aplicada en el corte 0. |
 | D-57 | Caché del sitio público: la caché de salida de ASP.NET Core, en memoria, guarda las páginas y las publicaciones y se vacía entera con cualquier cambio desde el panel. Para el navegador, los datos se guardan un minuto (`public, max-age=60`) y las fotos una hora (`public, max-age=3600`), que también guarda Cloudflare. Algo que se oculta deja de verse en el sitio en hasta un minuto, y su foto, por link directo, hasta una hora. | Con una sola instancia alcanza la memoria: Redis queda para cuando haya varias (doc 06). A esta escala, vaciar todo es lo más simple y nunca deja nada viejo. Los tiempos equilibran lo que tarda en desaparecer algo oculto con no pedirle todo al servidor en cada visita. Se invalida en un filtro de la API, así Application no depende de ASP.NET. |
+| D-59 | Fotos en el panel: se achican en el navegador a 2048 px de lado, en JPEG, antes de subirlas; se suben de a una, cada una con la versión que devolvió la anterior; y se ordenan con botones ↑ y ↓ en lugar de arrastrar. | Casi todo se carga desde el celular y con datos móviles, y la API guarda como máximo 2048 px de todos modos. De a una, porque cada subida usa la versión de la anterior y dos a la vez chocarían entre sí. Los botones andan mejor que arrastrar en una pantalla táctil. |
 
 ---
 
@@ -144,7 +145,9 @@ Todo el panel se diseña primero para el celular: es donde se sacan las fotos y 
 | Crear o editar publicación | Agregar hasta 10 fotos desde la cámara o la galería, elegir la portada, ordenarlas y quitarlas. Completar el título y el texto, fijarla y confirmar el consentimiento. Guardar, publicar, ocultar y verla en el sitio. |
 | Mi página | Nombre (define la dirección), bio, foto o logo, Instagram, WhatsApp y el «Sobre». En la del estudio, además, la ubicación y los horarios. La dirección se puede cambiar a propósito. |
 
-Si otra persona modificó la publicación mientras se editaba, el panel muestra un aviso con el botón **Recargar**, en lugar de pisar sus cambios.
+Si otra persona modificó la publicación mientras se editaba, el panel muestra un aviso con el botón **Recargar**, en lugar de pisar sus cambios. Si la persona se va con cambios sin guardar, o con fotos todavía subiendo, el panel le pregunta antes.
+
+En la pantalla de una publicación, publicar y ocultar los ve solo quien puede usarlos (D-51), y publicar dice qué falta: al menos una foto, el consentimiento (RN-BLG-03) y guardar lo escrito. Las fotos se achican y se suben de a una, y se ordenan con botones (D-59). «Verla en el sitio» llega con el sitio: hasta entonces, la pantalla no tiene ese botón.
 
 ---
 
@@ -259,6 +262,7 @@ Salen del Instagram de cada uno. Se usan en la etapa de diseño, después de apr
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 2.6 | 23/11/2026 | El panel crea y edita publicaciones, con fotos, consentimiento y publicar (sección 8). Decisión D-59: las fotos se achican en el navegador, se suben de a una y se ordenan con botones. |
 | 2.5 | 17/11/2026 | El wireframe del sitio, en `docs/wireframes/sitio/` (sección 7), para revisarlo con los artistas. |
 | 2.4 | 29/10/2026 | Endpoints públicos implementados: RN-BLG-01, RN-BLG-02, RN-BLG-12 y RN-BLG-13. Decisión D-57: la caché del sitio. |
 | 2.3 | 29/10/2026 | La Página pública, implementada con sus dos fotos (R-16): el panel las sube, las reemplaza y las quita. |

@@ -5,7 +5,7 @@ Plataforma SaaS multi-tenant para la gestión de estudios de tatuajes.
 La primera entrega es el **blog y portfolio público**: una página parecida a un perfil de Instagram para cada estudio y para cada artista. Sobre la misma base llega después el **MVP de gestión**: agenda, señas, clientes, tatuajes y sesiones.
 
 > **Estado:** en desarrollo. La versión 1 (blog) tenía que estar online el **17 de noviembre de 2026** (D-46): ahora lo urgente es poner online el panel, para que los artistas carguen su contenido mientras se termina el sitio.
-> Listo: login, estudios, usuarios, aislamiento por estudio y el backend del panel: publicaciones con fotos, tipo Trabajo o Blog, permisos por página y «Mi página», con la foto o logo y la foto de «Sobre». También los endpoints del sitio público, con caché, y en el panel, el inicio de sesión y «Mis publicaciones». Sigue: crear y editar publicaciones, el primer despliegue y «Mi página». Después, el sitio.
+> Listo: login, estudios, usuarios, aislamiento por estudio y el backend del panel: publicaciones con fotos, tipo Trabajo o Blog, permisos por página y «Mi página», con la foto o logo y la foto de «Sobre». También los endpoints del sitio público, con caché, y en el panel, el inicio de sesión, «Mis publicaciones» y crear y editar publicaciones, con fotos, consentimiento y publicar. Sigue: el primer despliegue y «Mi página». Después, el sitio.
 
 ---
 
@@ -310,7 +310,7 @@ Nada hardcodeado (D-34):
 - **Parámetros de negocio**: viven en la configuración de cada estudio, en la base, con valores por defecto (por ejemplo, el máximo de fotos por publicación, 10 por defecto). Nunca en el código.
 - **Parámetros técnicos**: `appsettings.json` tipados con el patrón Options y validados al arrancar: con una configuración imposible, la API no levanta. Por ejemplo, `Fotos` (peso y píxeles máximos, lado de cada tamaño, calidad de WebP), `Sitio` (tiempos de caché y largo del comienzo del texto del Blog) y `Almacenamiento:Disco:CarpetaRaiz`.
 - **Secretos**: nunca en el repositorio. `dotnet user-secrets` en desarrollo; variables de entorno en producción.
-- **Front**: por ahora no usa variables, porque llama siempre a `/api`, en el mismo origen. Si hacen falta, van en `.env.local` (ignorado por git), con un `.env.example` versionado como referencia. Todo lo que llega al front es público: ahí no van secretos.
+- **Front**: llama siempre a `/api`, en el mismo origen, así que no necesita la URL de la API. La única variable es `VITE_URL_SITIO` en el panel, la dirección base del sitio público, para el botón «Verla en el sitio» que llega con el sitio (`apps/panel/.env.example`). Las variables van en `.env.local` (ignorado por git), con un `.env.example` versionado como referencia. Todo lo que llega al front es público: ahí no van secretos.
 
 ---
 
@@ -345,7 +345,8 @@ docs: cerrar P-18 con el hosting elegido
 - [ ] **3 al 9/11**: el panel, con su wireframe, y el primer despliegue (P-18)
   - [x] Base del panel: inicio de sesión, sesión y navegación
   - [x] «Mis publicaciones», por página y con filtros
-  - [ ] Crear y editar publicaciones, y «Mi página»
+  - [x] Crear y editar publicaciones, con fotos, consentimiento y publicar
+  - [ ] «Mi página»
   - [ ] Primer despliegue
 - [ ] **10 al 16/11**: el sitio público y las pruebas en celulares
 - [ ] **17/11**: online
