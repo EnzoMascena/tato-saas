@@ -203,7 +203,14 @@ function Edicion({
         alGuardar={guardar}
       />
 
-      <FotosPublicacion id={detalle.id} fotos={detalle.fotos} cache={cache} trabajar={trabajar} avisar={avisar} />
+      <FotosPublicacion
+        id={detalle.id}
+        fotos={detalle.fotos}
+        cache={cache}
+        ocupado={trabajando > 0}
+        trabajar={trabajar}
+        avisar={avisar}
+      />
     </div>
   )
 }

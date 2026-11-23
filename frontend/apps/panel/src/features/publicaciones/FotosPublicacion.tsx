@@ -1,4 +1,12 @@
-import { ErrorApi, subirFoto, type FotoDePublicacion } from '@tato/api-client'
+import {
+  elegirPortada,
+  ErrorApi,
+  quitarFoto,
+  reordenarFotos,
+  subirFoto,
+  type FotoDePublicacion,
+} from '@tato/api-client'
+import { ArrowDown, ArrowUp } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { achicarFoto } from '@/lib/achicarFoto'
@@ -13,21 +21,28 @@ type Pendiente = { clave: number; nombre: string; estado: 'En cola' | 'Subiendo'
  * Se suben de a una, porque cada subida usa la versión que devolvió la anterior: dos a la vez usarían la misma y la
  * segunda chocaría con la primera (409). Cada foto muestra su estado, y una que la API rechaza (el máximo del estudio, un
  * formato que no sirve) muestra su mensaje y no frena a las demás.
+ *
+ * Para ordenar hay botones ↑ y ↓ y no arrastrar, que en el celular anda peor. La primera es la portada (RN-BLG-04).
+ * ocupado: hay otro cambio en marcha, y empezar uno usaría la misma versión.
  */
 export function FotosPublicacion({
   id,
   fotos,
   cache,
+  ocupado,
   trabajar,
   avisar,
 }: {
   id: string
   fotos: FotoDePublicacion[]
   cache: CacheDePublicacion
+  ocupado: boolean
   trabajar: <T>(accion: () => Promise<T>) => Promise<T | undefined>
   avisar: (error: ErrorApi) => void
 }) {
   const entrada = useRef<HTMLInputElement>(null)
+  // La foto que se está por quitar, esperando que la persona confirme: quitar borra sus archivos.
+  const [porQuitar, setPorQuitar] = useState<string>()
   const [pendientes, setPendientes] = useState<Pendiente[]>([])
   const [progreso, setProgreso] = useState<{ hechas: number; total: number }>()
   const cola = useRef<{ clave: number; archivo: File }[]>([])
@@ -54,6 +69,43 @@ export function FotosPublicacion({
 
     // Si ya hay una subida en marcha, la misma tanda levanta las fotos nuevas.
     if (!procesando.current) void procesar()
+  }
+
+  // El cambio y el guardado de la versión nueva van juntos, dentro del candado: nadie empieza otro entre medio.
+  function ordenar(nuevoOrden: FotoDePublicacion[]) {
+    return trabajar(async () => {
+      const { version } = await reordenarFotos(id, {
+        fotoIds: nuevoOrden.map((foto) => foto.id),
+        version: cache.actual().version,
+      })
+      cache.parchear(() => ({ fotos: nuevoOrden, version }))
+    })
+  }
+
+  function mover(indice: number, hacia: -1 | 1) {
+    const nuevoOrden = [...fotos]
+    ;[nuevoOrden[indice], nuevoOrden[indice + hacia]] = [nuevoOrden[indice + hacia], nuevoOrden[indice]]
+
+    return ordenar(nuevoOrden)
+  }
+
+  function ponerDePortada(foto: FotoDePublicacion) {
+    return trabajar(async () => {
+      const { version } = await elegirPortada(id, foto.id, { version: cache.actual().version })
+      cache.parchear((detalle) => ({
+        fotos: [foto, ...detalle.fotos.filter((otra) => otra.id !== foto.id)],
+        version,
+      }))
+    })
+  }
+
+  function quitar(foto: FotoDePublicacion) {
+    setPorQuitar(undefined)
+
+    return trabajar(async () => {
+      const { version } = await quitarFoto(id, foto.id, { version: cache.actual().version })
+      cache.parchear((detalle) => ({ fotos: detalle.fotos.filter((otra) => otra.id !== foto.id), version }))
+    })
   }
 
   async function procesar() {
@@ -152,14 +204,70 @@ export function FotosPublicacion({
       ) : (
         <ol className="flex flex-col divide-y">
           {fotos.map((foto, indice) => (
-            <li key={foto.id} className="flex items-center gap-3 py-3">
-              <img
-                src={`/api/fotos/${foto.id}/miniatura`}
-                alt={`Foto ${indice + 1}`}
-                loading="lazy"
-                className="aspect-4/5 w-16 shrink-0 rounded-md bg-muted object-cover"
-              />
-              <span className="font-medium">{indice === 0 ? 'Portada' : `Foto ${indice + 1}`}</span>
+            <li key={foto.id} className="flex flex-col gap-2 py-3">
+              <div className="flex items-center gap-3">
+                <img
+                  src={`/api/fotos/${foto.id}/miniatura`}
+                  alt={`Foto ${indice + 1}`}
+                  loading="lazy"
+                  className="aspect-4/5 w-16 shrink-0 rounded-md bg-muted object-cover"
+                />
+                <span className="font-medium">{indice === 0 ? 'Portada' : `Foto ${indice + 1}`}</span>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="outline"
+                  aria-label={`Subir la foto ${indice + 1}`}
+                  disabled={ocupado || indice === 0}
+                  onClick={() => void mover(indice, -1)}
+                >
+                  <ArrowUp aria-hidden />
+                </Button>
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="outline"
+                  aria-label={`Bajar la foto ${indice + 1}`}
+                  disabled={ocupado || indice === fotos.length - 1}
+                  onClick={() => void mover(indice, 1)}
+                >
+                  <ArrowDown aria-hidden />
+                </Button>
+                {indice > 0 && (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    aria-label={`Elegir la foto ${indice + 1} como portada`}
+                    disabled={ocupado}
+                    onClick={() => void ponerDePortada(foto)}
+                  >
+                    Portada
+                  </Button>
+                )}
+                {porQuitar === foto.id ? (
+                  <>
+                    <Button type="button" variant="destructive" disabled={ocupado} onClick={() => void quitar(foto)}>
+                      Sí, quitar la foto {indice + 1}
+                    </Button>
+                    <Button type="button" variant="outline" onClick={() => setPorQuitar(undefined)}>
+                      Cancelar
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    type="button"
+                    variant="outline"
+                    aria-label={`Quitar la foto ${indice + 1}`}
+                    disabled={ocupado}
+                    onClick={() => setPorQuitar(foto.id)}
+                  >
+                    Quitar
+                  </Button>
+                )}
+              </div>
             </li>
           ))}
         </ol>

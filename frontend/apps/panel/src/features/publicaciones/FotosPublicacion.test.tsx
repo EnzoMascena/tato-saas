@@ -29,8 +29,9 @@ describe('fotos de una publicación', () => {
 
     expect(screen.getByAltText('Foto 1').getAttribute('src')).toBe('/api/fotos/f1/miniatura')
     expect(screen.getByAltText('Foto 3').getAttribute('src')).toBe('/api/fotos/f3/miniatura')
-    screen.getByText('Portada')
-    screen.getByText('Foto 2')
+    // «Portada» es también el texto del botón de las otras fotos: acá se busca la etiqueta.
+    screen.getByText('Portada', { selector: 'span' })
+    screen.getByText('Foto 2', { selector: 'span' })
   })
 
   it('el selector deja elegir varias imágenes de la cámara o la galería', async () => {
