@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
@@ -24,25 +25,30 @@ export type ValoresPublicacion = z.infer<typeof esquema>
  * conserva los saltos de línea: el sitio lo muestra en párrafos.
  *
  * alGuardar devuelve true si la API aceptó el cambio; entonces lo guardado pasa a ser el valor «limpio» del formulario.
+ * alCambiarSucio avisa cada vez que hay (o deja de haber) cambios sin guardar.
  */
 export function FormularioPublicacion({
   valores,
   etiquetaGuardar,
   ocupado,
   alGuardar,
+  alCambiarSucio,
 }: {
   valores: ValoresPublicacion
   etiquetaGuardar: string
   ocupado: boolean
   alGuardar: (valores: ValoresPublicacion) => Promise<boolean>
+  alCambiarSucio: (sucio: boolean) => void
 }) {
   const {
     register,
     handleSubmit,
     control,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isDirty, isSubmitting },
   } = useForm({ resolver: zodResolver(esquema), defaultValues: valores })
+
+  useEffect(() => alCambiarSucio(isDirty), [isDirty, alCambiarSucio])
 
   const largoTexto = useWatch({ control, name: 'descripcion' }).length
 

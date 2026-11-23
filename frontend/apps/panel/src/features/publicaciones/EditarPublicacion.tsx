@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router'
 import { useSesion } from '@/features/sesion/sesion'
 import { elegido } from '@/lib/elegido'
+import { AccionesPublicacion } from './AccionesPublicacion'
 import { AvisoDeError } from './AvisoDeError'
 import { FormularioPublicacion, type ValoresPublicacion } from './FormularioPublicacion'
 import { FotosPublicacion } from './FotosPublicacion'
@@ -58,6 +59,7 @@ function Creacion() {
   const tipo = elegido(busqueda.get('tipo'), Object.values(TipoPublicacion)) ?? TipoPublicacion.Trabajo
   const tatuadorDelUsuario = usuario?.tatuadorId ?? null
   const [enElEstudio, setEnElEstudio] = useState(!tatuadorDelUsuario || busqueda.get('de') === 'estudio')
+  const [, setSucio] = useState(false)
 
   async function crear(valores: ValoresPublicacion) {
     const creada = await intentar(() =>
@@ -103,6 +105,7 @@ function Creacion() {
         etiquetaGuardar="Crear publicación"
         ocupado={false}
         alGuardar={crear}
+        alCambiarSucio={setSucio}
       />
     </div>
   )
@@ -127,6 +130,7 @@ function Edicion({
   // Con qué arranca el formulario: lo que se abrió, o lo que trajo Recargar.
   const [base, setBase] = useState(detalle)
   const [carga, setCarga] = useState(0)
+  const [sucio, setSucio] = useState(false)
 
   async function trabajar<T>(accion: () => Promise<T>) {
     setTrabajando((n) => n + 1)
@@ -201,6 +205,7 @@ function Edicion({
         etiquetaGuardar="Guardar cambios"
         ocupado={trabajando > 0}
         alGuardar={guardar}
+        alCambiarSucio={setSucio}
       />
 
       <FotosPublicacion
@@ -211,6 +216,17 @@ function Edicion({
         trabajar={trabajar}
         avisar={avisar}
       />
+
+      {usuario && (
+        <AccionesPublicacion
+          detalle={detalle}
+          usuario={usuario}
+          cache={cache}
+          ocupado={trabajando > 0}
+          haySinGuardar={sucio}
+          trabajar={trabajar}
+        />
+      )}
     </div>
   )
 }
