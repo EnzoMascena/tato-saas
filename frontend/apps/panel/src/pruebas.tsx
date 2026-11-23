@@ -1,8 +1,9 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { createMemoryRouter } from 'react-router'
+import { RouterProvider } from 'react-router/dom'
 import { vi } from 'vitest'
-import App from './App'
+import { rutas } from './App'
 import { crearClienteQuery } from './features/sesion/sesion'
 
 /**
@@ -30,9 +31,7 @@ export function renderizarPanel(ruta: string) {
 
   render(
     <QueryClientProvider client={cliente}>
-      <MemoryRouter initialEntries={[ruta]}>
-        <App />
-      </MemoryRouter>
+      <RouterProvider router={createMemoryRouter(rutas, { initialEntries: [ruta] })} />
     </QueryClientProvider>,
   )
 
