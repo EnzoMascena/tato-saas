@@ -10,6 +10,8 @@ import { Pin } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { useSesion } from '@/features/sesion/sesion'
+import { elegido } from '@/lib/elegido'
+import { Opciones } from './Opciones'
 
 const estados = [
   { nombre: 'Todas' },
@@ -133,38 +135,6 @@ export function Publicaciones() {
 }
 
 /**
- * Un grupo de botones para elegir una opción, como un filtro. Botones y no una lista desplegable: se tocan con el
- * pulgar y se ve cuál está elegida.
- */
-function Opciones({
-  nombre,
-  opciones,
-  elegida,
-  alElegir,
-}: {
-  nombre: string
-  opciones: { valor?: string; nombre: string }[]
-  elegida?: string
-  alElegir: (valor?: string) => void
-}) {
-  return (
-    <div role="group" aria-label={nombre} className="flex flex-wrap gap-2">
-      {opciones.map((opcion) => (
-        <Button
-          key={opcion.nombre}
-          size="sm"
-          variant={opcion.valor === elegida ? 'default' : 'outline'}
-          aria-pressed={opcion.valor === elegida}
-          onClick={() => alElegir(opcion.valor)}
-        >
-          {opcion.nombre}
-        </Button>
-      ))}
-    </div>
-  )
-}
-
-/**
  * Una publicación de la lista. La portada va en 4:5, como en la grilla del sitio (docs/wireframes/sitio).
  */
 function Fila({ publicacion }: { publicacion: PublicacionResumen }) {
@@ -200,11 +170,4 @@ function Fila({ publicacion }: { publicacion: PublicacionResumen }) {
       </span>
     </Link>
   )
-}
-
-/**
- * El valor de un parámetro de la URL, si es uno de los válidos.
- */
-function elegido<T extends string>(valor: string | null, validos: readonly T[]) {
-  return validos.find((valido) => valido === valor)
 }
