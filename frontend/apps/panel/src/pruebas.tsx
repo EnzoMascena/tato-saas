@@ -1,19 +1,21 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
+import { createMemoryRouter } from 'react-router'
+import { RouterProvider } from 'react-router/dom'
 import { vi } from 'vitest'
-import App from './App'
+import { rutas } from './App'
 import { crearClienteQuery } from './features/sesion/sesion'
 
 /**
  * Simula la API para los tests: cada pedido «MÉTODO /ruta» responde lo que diga el test, y lo demás, 404. La respuesta
- * recibe la URL, por los parámetros. Lee las rutas en cada pedido, así un test puede cambiar una a mitad de camino.
+ * recibe la URL, por los parámetros, y puede demorar (devolver una promesa). Lee las rutas en cada pedido, así un test
+ * puede cambiar una a mitad de camino.
  */
-export function simularApi(rutas: Record<string, (url: URL) => Response>) {
+export function simularApi(rutas: Record<string, (url: URL) => Response | Promise<Response>>) {
   const fetchSimulado = vi.fn(async (url: string, opciones?: RequestInit) => {
     const pedida = new URL(url, 'https://localhost')
     const respuesta = rutas[`${opciones?.method ?? 'GET'} ${pedida.pathname}`]
-    return respuesta ? respuesta(pedida) : new Response(null, { status: 404 })
+    return respuesta ? await respuesta(pedida) : new Response(null, { status: 404 })
   })
   vi.stubGlobal('fetch', fetchSimulado)
   return fetchSimulado
@@ -30,9 +32,7 @@ export function renderizarPanel(ruta: string) {
 
   render(
     <QueryClientProvider client={cliente}>
-      <MemoryRouter initialEntries={[ruta]}>
-        <App />
-      </MemoryRouter>
+      <RouterProvider router={createMemoryRouter(rutas, { initialEntries: [ruta] })} />
     </QueryClientProvider>,
   )
 

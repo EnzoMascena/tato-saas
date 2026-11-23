@@ -4,7 +4,7 @@ Por qué se decidió cada cosa, vocabulario del dominio y temas abiertos.
 
 | Versión | Fecha | Estado | Relacionados |
 | --- | --- | --- | --- |
-| 1.5 | 17 de noviembre de 2026 | Documento vivo | Docs 01 a 04, 06 y 07 |
+| 1.6 | 23 de noviembre de 2026 | Documento vivo | Docs 01 a 04, 06 y 07 |
 
 > **Novedades de la versión 1.3:** se cierran las preguntas del documento 07 (blog y portfolio). Se suman las decisiones D-46 a D-56 y los pendientes P-19 a P-30, y el glosario incorpora el vocabulario del blog. Pasa a Markdown, en `docs/` del repositorio.
 
@@ -74,6 +74,7 @@ Las reglas vigentes están en los documentos 02, 03 y 07. Este registro explica 
 | D-56 | Dos aplicaciones de front, el sitio y el panel, en el mismo repositorio. | El sitio queda liviano y sin login; el panel crece hasta ser la app del MVP. Cierra P-28. Aplicada en el corte 0. | Doc 07, 10 |
 | D-57 | Caché del sitio público: la caché de salida de ASP.NET Core, en memoria, guarda las páginas y las publicaciones y se vacía entera con cualquier cambio desde el panel. Para el navegador, los datos se guardan un minuto (`public, max-age=60`) y las fotos una hora (`public, max-age=3600`), que también guarda Cloudflare. Algo que se oculta deja de verse en el sitio en hasta un minuto, y su foto, por link directo, hasta una hora. | Con una sola instancia alcanza la memoria: Redis queda para cuando haya varias (doc 06). A esta escala, vaciar todo es lo más simple y nunca deja nada viejo. Los tiempos equilibran lo que tarda en desaparecer algo oculto con no pedirle todo al servidor en cada visita. Se invalida en un filtro de la API, así Application no depende de ASP.NET. | Doc 07, 10 |
 | D-58 | El cliente de la API del front se genera con Orval desde una copia versionada del OpenAPI (`frontend/packages/api-client/openapi.json`), y el código generado también se versiona. Cada endpoint tiene su nombre (`[EndpointName]`), que es su `operationId`, y un test de arquitectura lo exige. Todos los pedidos pasan por un único fetch, que suma el token antiforgery y convierte los errores en `ErrorApi`. | Generar no depende de que la API esté levantada, y los cambios del contrato se ven en cada pull request. Con nombres propios, el cliente se lee en castellano (`useListarPublicaciones`) en lugar de los que Orval arma con la ruta (`getApiPublicacionesId`). Se descartó generar desde la API corriendo en cada build. | README, «Frontend» |
+| D-59 | Fotos en el panel: se achican en el navegador a 2048 px de lado, en JPEG, antes de subirlas; se suben de a una, cada una con la versión que devolvió la anterior; y se ordenan con botones ↑ y ↓ en lugar de arrastrar. Una foto que el navegador no puede leer (HEIC en algunos Android) se sube como está y la API la acepta o la rechaza con su mensaje. | Casi todo se carga desde el celular y con datos móviles, y la API guarda como máximo 2048 px de todos modos. De a una, porque cada subida usa la versión de la anterior (concurrencia optimista) y dos a la vez chocarían entre sí. Los botones andan mejor que arrastrar en una pantalla táctil. Se descartó una barra de porcentaje: `fetch` no informa cuánto se subió, y `XMLHttpRequest` sería un camino aparte del cliente de la API. | Doc 07, 8 |
 
 ---
 
@@ -178,6 +179,7 @@ Las reglas vigentes están en los documentos 02, 03 y 07. Este registro explica 
 
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
+| 1.6 | 23/11/2026 | Decisión D-59: las fotos en el panel se achican en el navegador, se suben de a una y se ordenan con botones. |
 | 1.5 | 17/11/2026 | Decisión D-58: el cliente de la API del front, generado con Orval desde una copia versionada del OpenAPI, con un nombre para cada endpoint. |
 | 1.4 | 29/10/2026 | Decisión D-57: la caché del sitio público y cuánto puede seguir viéndose algo después de ocultarlo. |
 | 1.3 | 16/10/2026 | Cierre de las preguntas del documento 07: decisiones D-46 a D-56 (blog como primera entrega, alcance tipo Instagram, páginas por estudio y por artista, una sola entidad Publicación, permisos por página, dirección por página, contacto, consentimiento, alta por consola y dos aplicaciones de front). Se suman P-19 a P-30: se resuelven P-19, P-20, P-21, P-24, P-27 y P-28, se postergan P-22 y P-23, y quedan abiertos P-25, P-26, P-29 y P-30. P-18 suma el presupuesto. Glosario del blog. Pasa a Markdown, en `docs/` del repositorio. |
