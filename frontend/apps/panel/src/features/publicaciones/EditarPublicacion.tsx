@@ -5,6 +5,7 @@ import { useSesion } from '@/features/sesion/sesion'
 import { elegido } from '@/lib/elegido'
 import { AvisoDeError } from './AvisoDeError'
 import { FormularioPublicacion, type ValoresPublicacion } from './FormularioPublicacion'
+import { FotosPublicacion } from './FotosPublicacion'
 import { Opciones } from './Opciones'
 import { useAvisos } from './useAvisos'
 import { useCacheDePublicacion, useDetallePublicacion } from './useDetallePublicacion'
@@ -121,7 +122,7 @@ function Edicion({
 }) {
   const { data: usuario } = useSesion()
   const cache = useCacheDePublicacion(detalle.id)
-  const { aviso, intentar, limpiar } = useAvisos()
+  const { aviso, avisar, intentar, limpiar } = useAvisos()
   const [trabajando, setTrabajando] = useState(0)
   // Con qué arranca el formulario: lo que se abrió, o lo que trajo Recargar.
   const [base, setBase] = useState(detalle)
@@ -201,6 +202,8 @@ function Edicion({
         ocupado={trabajando > 0}
         alGuardar={guardar}
       />
+
+      <FotosPublicacion id={detalle.id} fotos={detalle.fotos} cache={cache} trabajar={trabajar} avisar={avisar} />
     </div>
   )
 }

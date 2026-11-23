@@ -8,13 +8,14 @@ import { crearClienteQuery } from './features/sesion/sesion'
 
 /**
  * Simula la API para los tests: cada pedido «MÉTODO /ruta» responde lo que diga el test, y lo demás, 404. La respuesta
- * recibe la URL, por los parámetros. Lee las rutas en cada pedido, así un test puede cambiar una a mitad de camino.
+ * recibe la URL, por los parámetros, y puede demorar (devolver una promesa). Lee las rutas en cada pedido, así un test
+ * puede cambiar una a mitad de camino.
  */
-export function simularApi(rutas: Record<string, (url: URL) => Response>) {
+export function simularApi(rutas: Record<string, (url: URL) => Response | Promise<Response>>) {
   const fetchSimulado = vi.fn(async (url: string, opciones?: RequestInit) => {
     const pedida = new URL(url, 'https://localhost')
     const respuesta = rutas[`${opciones?.method ?? 'GET'} ${pedida.pathname}`]
-    return respuesta ? respuesta(pedida) : new Response(null, { status: 404 })
+    return respuesta ? await respuesta(pedida) : new Response(null, { status: 404 })
   })
   vi.stubGlobal('fetch', fetchSimulado)
   return fetchSimulado
